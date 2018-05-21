@@ -2,7 +2,8 @@
 This repo is for Spring 2018 Python 220 Advanced Python - Accelerated Program
 You can find the session notes rendered here:
 
-https://uwpce-pythoncert-classrepos.github.io/Sp2018-Python220-Accelerated/
+https://github.com/UWPCE-PythonCert-ClassRepos/SP2018-Python220-Accelerated
+
 
 Class Repository For Spring 2018 Accelerated class
 UWPCE Python Certificate Program
