@@ -28,3 +28,25 @@ def fib():
     while True:
         yield x
         x, y = y, x + y
+
+def prime():
+    x = 0
+
+    while True:
+        if x == 0:
+            yield x
+        elif x == 1:
+            yield x
+        elif x == 2:
+            yield x
+        elif x == 3:
+            yield x
+        elif x == 5:
+            yield x
+        elif x == 7:
+            yield x
+        elif x % 2 != 0 and x % 3 != 0 and x % 5 != 0 and x % 7 != 0:
+            yield x
+
+        x += 1
+
