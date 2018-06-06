@@ -68,3 +68,43 @@ class Locke():
             "Number of boats exceed locke capacity")
 
         print("Boats have passed through the locke")
+
+# l = Locke(9)
+# with l as foo:
+#     l.boats_through_locke(5)
+
+# l = Locke(9)
+# with l as foo:
+#     l.boats_through_locke(10)
+
+"""
+SAMPLE RESULTS:
+
+--------------------------------------------
+
+l = Locke(9)
+with l as foo:
+    l.boats_through_locke(5)
+
+>>> 
+...Stopping Pumps...
+ ...Opening Gates...
+Boats have passed through the locke
+...Closing Gates...
+ ...Starting Pumps...
+
+--------------------------------------------
+
+l = Locke(9)
+with l as foo:
+    l.boats_through_locke(10)
+
+>>>
+...Stopping Pumps...
+ ...Opening Gates...
+Number of boats exceed locke capacity
+ ...Closing Gates...
+...Starting Pumps...
+
+--------------------------------------------
+"""
