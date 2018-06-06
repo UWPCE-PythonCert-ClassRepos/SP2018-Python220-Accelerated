@@ -1,0 +1,12 @@
+{
+  "json_save/test/test_savables.py::test_bad_dicts[val4]": true,
+  "json_save/test/test_savables.py::test_basics": true,
+  "json_save/test/test_savables.py::test_basics[Tuple-val5]": true,
+  "json_save/test/test_savables.py::test_containers[Dict-val0]": true,
+  "json_save/test/test_savables.py::test_dicts[Dict-val0]": true,
+  "json_save/test/test_savables.py::test_dicts[Dict-val1]": true,
+  "json_save/test/test_savables.py::test_dicts[Dict-val2]": true,
+  "json_save/test/test_savables.py::test_dicts[Dict-val3]": true,
+  "json_save/test/test_savables.py::test_dicts[val10]": true,
+  "json_save/test/test_savables.py::test_dicts[val7]": true
+}
