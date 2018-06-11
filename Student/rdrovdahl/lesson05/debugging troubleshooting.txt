@@ -1,0 +1,173 @@
+Launching program in debugging mode with a variable value of ’10’:
+Ryans-MacBook-Pro:lesson05 rdrovdahl$ python3 -m pdb recursive_debug.py 10
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(6)<module>()
+-> '''
+
+
+Performing a long list to display the whole program:
+(Pdb) ll
+  1  	#! /usr/local/bin/python3
+  2  	
+  3  	
+  4  	'''
+  5  	use this program to exercise debugging techniques
+  6  ->	'''
+  7  	
+  8  	import sys
+  9  	
+ 10  	
+ 11  	def my_fun(n):
+ 12  	    if n == 2:
+ 13  	        return True
+ 14  	    return my_fun(n/2)
+ 15  	
+ 16  	if __name__ == '__main__':
+ 17  	    n = int(sys.argv[1])
+ 18  	    print(my_fun(n))
+
+
+Stepping through the program to find where error is occurring:
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(8)<module>()
+-> import sys
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(11)<module>()
+-> def my_fun(n):
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(16)<module>()
+-> if __name__ == '__main__':
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(17)<module>()
+-> n = int(sys.argv[1])
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(18)<module>()
+-> print(my_fun(n))
+(Pdb) n
+Traceback (most recent call last):
+  File "/anaconda3/lib/python3.6/pdb.py", line 1667, in main
+    pdb._runscript(mainpyfile)
+  File "/anaconda3/lib/python3.6/pdb.py", line 1548, in _runscript
+    self.run(statement)
+  File "/anaconda3/lib/python3.6/bdb.py", line 431, in run
+    exec(cmd, globals, locals)
+  File "<string>", line 1, in <module>
+  File "/Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py", line 18, in <module>
+    print(my_fun(n))
+  File "/Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py", line 14, in my_fun
+    return my_fun(n/2)
+  File "/Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py", line 14, in my_fun
+    return my_fun(n/2)
+  File "/Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py", line 14, in my_fun
+    return my_fun(n/2)
+  [Previous line repeated 980 more times]
+  File "/Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py", line 11, in my_fun
+    def my_fun(n):
+  File "/anaconda3/lib/python3.6/bdb.py", line 50, in trace_dispatch
+    return self.dispatch_call(frame, arg)
+  File "/anaconda3/lib/python3.6/bdb.py", line 76, in dispatch_call
+    if not (self.stop_here(frame) or self.break_anywhere(frame)):
+  File "/anaconda3/lib/python3.6/bdb.py", line 173, in break_anywhere
+    return self.canonic(frame.f_code.co_filename) in self.breaks
+  File "/anaconda3/lib/python3.6/bdb.py", line 29, in canonic
+    if filename == "<" + filename[1:-1] + ">":
+RecursionError: maximum recursion depth exceeded in comparison
+Uncaught exception. Entering post mortem debugging
+Running 'cont' or 'step' will restart the program
+> /anaconda3/lib/python3.6/bdb.py(29)canonic()
+-> if filename == "<" + filename[1:-1] + ">":
+As per above, the error is the maximum recursion depth exceeded in the my_fun function
+
+Restarting and stepping into the my_fun function and showing the value of n every time recursion occurs:
+Ryans-MacBook-Pro:lesson05 rdrovdahl$ python3 -m pdb recursive_debug.py 10
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(6)<module>()
+-> '''
+(Pdb) ll
+  1  	#! /usr/local/bin/python3
+  2  	
+  3  	
+  4  	'''
+  5  	use this program to exercise debugging techniques
+  6  ->	'''
+  7  	
+  8  	import sys
+  9  	
+ 10  	
+ 11  	def my_fun(n):
+ 12  	    if n == 2:
+ 13  	        return True
+ 14  	    return my_fun(n/2)
+ 15  	
+ 16  	if __name__ == '__main__':
+ 17  	    n = int(sys.argv[1])
+ 18  	    print(my_fun(n))
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(8)<module>()
+-> import sys
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(11)<module>()
+-> def my_fun(n):
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(16)<module>()
+-> if __name__ == '__main__':
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(17)<module>()
+-> n = int(sys.argv[1])
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(18)<module>()
+-> print(my_fun(n))
+(Pdb) s
+--Call--
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(11)my_fun()
+-> def my_fun(n):
+(Pdb) pp n
+10
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(12)my_fun()
+-> if n == 2:
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(14)my_fun()
+-> return my_fun(n/2)
+(Pdb) s
+--Call--
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(11)my_fun()
+-> def my_fun(n):
+(Pdb) pp n
+5.0
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(12)my_fun()
+-> if n == 2:
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(14)my_fun()
+-> return my_fun(n/2)
+(Pdb) s
+--Call--
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(11)my_fun()
+-> def my_fun(n):
+(Pdb) pp n
+2.5
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(12)my_fun()
+-> if n == 2:
+(Pdb) n
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(14)my_fun()
+-> return my_fun(n/2)
+(Pdb) s
+--Call--
+> /Users/rdrovdahl/gitroot/SP2018-Python220-Accelerated/Student/rdrovdahl/lesson05/recursive_debug.py(11)my_fun()
+-> def my_fun(n):
+(Pdb) pp n
+1.25
+(Pdb) 
+At this point, the value of n is 1.25 which is less than 2.  2 is the only value which will stop the recursive loop.
+N will continue to decrease in value with each recursive loop and has no way of ever reaching 2 which is why we are seeing the recursive maximum depth error.
+
+The issue with the function is that it only works with variables which are factors of 2.
+
+
+
+
+
+
+
+
+
