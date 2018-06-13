@@ -14,7 +14,7 @@ console_handler = logging.StreamHandler()        # Add this line
 console_handler.setLevel(logging.DEBUG)          # Add this line
 console_handler.setFormatter(formatter_withtime)          # Add this line
 
-server_handler = logging.ServerHandler()        # Add this line
+server_handler = logging.SysLogHandler()        # Add this line
 server_handler.setLevel(logging.ERROR)          # Add this line
 server_handler.setFormatter(formatter_withouttime)
 
