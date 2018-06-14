@@ -1,0 +1,162 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red239\green239\blue239;\red4\green4\blue4;}
+{\*\expandedcolortbl;;\cssrgb\c94962\c94962\c94962;\cssrgb\c1294\c1294\c1294;}
+\margl1440\margr1440\vieww12600\viewh7800\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Lesson06 Test Results\
+\
+Unit Testing:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 Ryans-MacBook-Pro:calculator rdrovdahl$ python3 -m unittest test\
+........\
+----------------------------------------------------------------------\
+Ran 8 tests in 0.003s\
+\
+OK\
+Ryans-MacBook-Pro:calculator rdrovdahl$ 
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+Pylint Testing:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 Report\
+======\
+39 statements analysed.\
+\
+Statistics by type\
+------------------\
+\
++---------+-------+-----------+-----------+------------+---------+\
+|type     |number |old number |difference |%documented |%badname |\
++=========+=======+===========+===========+============+=========+\
+|module   |7      |7          |=          |100.00      |0.00     |\
++---------+-------+-----------+-----------+------------+---------+\
+|class    |6      |6          |=          |100.00      |0.00     |\
++---------+-------+-----------+-----------+------------+---------+\
+|method   |11     |11         |=          |100.00      |0.00     |\
++---------+-------+-----------+-----------+------------+---------+\
+|function |0      |0          |=          |0           |0        |\
++---------+-------+-----------+-----------+------------+---------+\
+\
+\
+\
+External dependencies\
+---------------------\
+::\
+\
+    calculator \
+      \\-exceptions (calculator.calculator)\
+\
+\
+\
+Raw metrics\
+-----------\
+\
++----------+-------+------+---------+-----------+\
+|type      |number |%     |previous |difference |\
++==========+=======+======+=========+===========+\
+|code      |56     |37.58 |56       |=          |\
++----------+-------+------+---------+-----------+\
+|docstring |71     |47.65 |71       |=          |\
++----------+-------+------+---------+-----------+\
+|comment   |0      |0.00  |0        |=          |\
++----------+-------+------+---------+-----------+\
+|empty     |22     |14.77 |22       |=          |\
++----------+-------+------+---------+-----------+\
+\
+\
+\
+Duplication\
+-----------\
+\
++-------------------------+------+---------+-----------+\
+|                         |now   |previous |difference |\
++=========================+======+=========+===========+\
+|nb duplicated lines      |0     |0        |=          |\
++-------------------------+------+---------+-----------+\
+|percent duplicated lines |0.000 |0.000    |=          |\
++-------------------------+------+---------+-----------+\
+\
+\
+\
+Messages by category\
+--------------------\
+\
++-----------+-------+---------+-----------+\
+|type       |number |previous |difference |\
++===========+=======+=========+===========+\
+|convention |0      |0        |=          |\
++-----------+-------+---------+-----------+\
+|refactor   |0      |4        |-4.00      |\
++-----------+-------+---------+-----------+\
+|warning    |0      |0        |=          |\
++-----------+-------+---------+-----------+\
+|error      |0      |0        |=          |\
++-----------+-------+---------+-----------+\
+\
+\
+\
+\
+-------------------------------------------------------------------\
+Your code has been rated at 10.00/10 (previous run: 8.97/10, +1.03)\
+\
+Ryans-MacBook-Pro:calculator rdrovdahl$ 
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+Flake8 Testing:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 Ryans-MacBook-Pro:calculator rdrovdahl$ flake8 calculate\
+Ryans-MacBook-Pro:calculator rdrovdahl$ 
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+Coverage:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 Ryans-MacBook-Pro:calculator rdrovdahl$ coverage report\
+Name                       Stmts   Miss  Cover\
+----------------------------------------------\
+calculator/__init__.py         0      0   100%\
+calculator/adder.py            3      0   100%\
+calculator/calculator.py      25      0   100%\
+calculator/divider.py          3      0   100%\
+calculator/exceptions.py       2      0   100%\
+calculator/multiplier.py       3      0   100%\
+calculator/subtracter.py       3      0   100%\
+----------------------------------------------\
+TOTAL                         39      0   100%\
+Ryans-MacBook-Pro:calculator rdrovdahl$ coverage report -m\
+Name                       Stmts   Miss  Cover   Missing\
+--------------------------------------------------------\
+calculator/__init__.py         0      0   100%\
+calculator/adder.py            3      0   100%\
+calculator/calculator.py      25      0   100%\
+calculator/divider.py          3      0   100%\
+calculator/exceptions.py       2      0   100%\
+calculator/multiplier.py       3      0   100%\
+calculator/subtracter.py       3      0   100%\
+--------------------------------------------------------\
+TOTAL                         39      0   100%\
+Ryans-MacBook-Pro:calculator rdrovdahl$ python3 -m unittest test\
+........\
+----------------------------------------------------------------------\
+Ran 8 tests in 0.003s\
+\
+OK\
+Ryans-MacBook-Pro:calculator rdrovdahl$ 
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+}
