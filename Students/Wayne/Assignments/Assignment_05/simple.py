@@ -19,7 +19,7 @@ console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(formatter)
 
-sys_handler = logging.handlers.SysLogHandler(address=('localhost', 514))
+sys_handler = logging.handlers.SysLogHandler(address=("127.0.0.1", 9999))
 sys_handler.setLevel(logging.ERROR)
 sys_handler.setFormatter(sysformatter)
 
@@ -44,5 +44,8 @@ def my_fun(n):
 
 
 if __name__ == "__main__":
+
+
+
 
     my_fun(100)

@@ -1,0 +1,2 @@
+2018-06-16 11:02:49,901 simple.py:38  WARNING The value of i is 50.
+2018-06-16 11:02:49,901 simple.py:43  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
