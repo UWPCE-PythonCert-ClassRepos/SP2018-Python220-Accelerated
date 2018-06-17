@@ -1,0 +1,33 @@
+{
+    "__obj_type": "json_dh",
+    "Donors": [
+        {
+            "name": "Jeff Bezos",
+            "donations": [
+                1,
+                5,
+                10
+            ]
+        },
+        {
+            "name": "Bill Gates",
+            "donations": [
+                10000
+            ]
+        },
+        {
+            "name": "Steve Jobs",
+            "donations": [
+                20,
+                50,
+                100
+            ]
+        },
+        {
+            "name": "Kristian Francisco",
+            "donations": [
+                100
+            ]
+        }
+    ]
+}
