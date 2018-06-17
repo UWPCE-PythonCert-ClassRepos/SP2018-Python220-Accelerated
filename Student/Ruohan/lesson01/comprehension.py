@@ -8,7 +8,7 @@ gimme = music[music.danceability > 0.8]
 gimme = gimme[music.loudness < -0.5]
 gimme = gimme.sort_values(by = 'danceability', ascending = False)
 gimme = gimme[['name', 'artists', 'danceability', 'loudness']]
-print(gimme)
+print(gimme.head(5))
 
 
 #use comprehension
@@ -19,4 +19,4 @@ paly_list = [(name,artists,dancebility,loudness) \
 
 sorted_paly_list = sorted(paly_list, key = lambda x: x[2], reverse = True)
 
-print(sorted_paly_list)
+print(sorted_paly_list[:5])
