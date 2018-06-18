@@ -7,7 +7,7 @@ can be run with py.test or nosetests
 
 """
 
-import generator as gen
+import generator_solution as gen
 
 
 def test_intsum():
