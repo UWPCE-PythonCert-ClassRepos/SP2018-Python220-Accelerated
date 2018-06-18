@@ -151,8 +151,8 @@ def send_letters():
     file_path = "C:\_Python220AC\SP2018-Python220-Accelerated\Student\WesWang\Lesson4\Assignment\\"
     donors = db.donors
     for donor in donors:
-        letters = open(file_path + donors[donor].name.replace(" ", "_") + "_Donation_Letter_" + str(date.today()) + ".txt", "w")
-        letters.write(thank_letter(donors[donor].name, donors[donor].donations[-1]))
+        letters = open(file_path + donor.name.replace(" ", "_") + "_Donation_Letter_" + str(date.today()) + ".txt", "w")
+        letters.write(thank_letter(donor.name, donor.donations[-1]))
         letters.close()
     print("\nLetters to all donors' previous donations printed !!\n")
 
