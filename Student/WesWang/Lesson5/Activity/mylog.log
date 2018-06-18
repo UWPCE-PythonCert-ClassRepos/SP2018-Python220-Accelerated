@@ -1,0 +1,2 @@
+2018-06-07 19:48:04,691 <ipython-input-7-94140700dc1e>:24  WARNING The value of i is 50.
+2018-06-07 19:48:04,694 <ipython-input-7-94140700dc1e>:28  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
