@@ -1,0 +1,14 @@
+Metadata-Version: 1.0
+Name: json-save
+Version: 0.4.0
+Summary: Metaclass based system for saving object to JSON
+Home-page: UNKNOWN
+Author: Chris Barker
+Author-email: PythonCHB@gmail.com
+License: UNKNOWN
+Description: This is a simple meta-class based system for saving objects in the JSON format.
+        
+        It can make any arbitrary class savable and re-loadable from JSON.
+        
+        
+Platform: UNKNOWN
