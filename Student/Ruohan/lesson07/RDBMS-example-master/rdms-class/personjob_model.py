@@ -74,6 +74,8 @@ class Job(BaseModel):
     salary = DecimalField(max_digits = 7, decimal_places = 2)
     logger.info('Which person had the Job')
     person_employed = ForeignKeyField(Person, related_name='was_filled_by', null = False)
+    logger.info('Duration in days of job held in this department ')
+    job_duration = IntegerField()
 
 # acitivity for lesson07
 class Department(BaseModel):
@@ -86,8 +88,6 @@ class Department(BaseModel):
     department_name = CharField(max_length = 30)
     logger.info('Department Manager Name')
     manager = CharField(max_length = 30)
-    logger.info('Duration in days of job held in this department ')
-    job_duration = IntegerField()
     logger.info('What job included in this department')
     job_included = ForeignKeyField(Job, related_name='was_in', null = False)
 

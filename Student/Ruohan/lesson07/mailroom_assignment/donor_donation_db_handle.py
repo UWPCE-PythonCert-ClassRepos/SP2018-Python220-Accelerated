@@ -1,24 +1,64 @@
+#!/usr/bin/env python
+
+"""
+
+"""
 
 from creat_donor_donation_db import *
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def num_donation():
+    query = (Donor
+             .select(Donor, fn.COUNT(Donation.amount).alias('donation_count'))
+             .join(Donation, JOIN.LEFT_OUTER)
+             .group_by(Donor)
+             .order_by(Donor.donor_name))
 
-logger.info('Working with Donor class')
-DONOR_ID = 0
-DONOR_NAME = 1
-CITY = 2
-PHONE_NUMBER = 3
+    for donor in query:
+        logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} has made {donor.donation_count} times donation')
 
-donors = [
-    ('00001', 'William Gates III', 'Seattle', '1234567890'),
-    ('00002', 'Cara Delevinge', 'San fransisco', '0983457621'),
-    ('00003', 'Ellen Degenerous','LA', None),
-    ('00004', 'Kate Upton', 'LA', '9876543201'),
-    ('00005', 'Suki Waterhouse', 'London', '654823339'),
-    ]
+def dotal_donation():
+    query = (Donor
+             .select(Donor, fn.SUM(Donation.amount).alias('donation_total'))
+             .join(Donation, JOIN.LEFT_OUTER)
+             .group_by(Donor)
+             .order_by(Donor.donor_name))
+    for donor in query:
+        logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} has made ${donor.donation_total} in total')
 
-for donor in donors:
-    try 
+
+def last_donation():
+    subq = Donor.select(Donor, fn.MAX(Donation.donation_time).alias('donation_last'))
+    query = (Donor
+             .select()
+             .join(Donation, JOIN.LEFT_OUTER)
+             .where(Donation.donation_time == subq))
+    for donor in query:
+        logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} last donation is ${donor.donation_last}')
+
+
+num_donation()
+dotal_donation()
+last_donation()
+
+database.close()
+
+
+# def main():
+#     selection_dict = {"1": send_thank_you,
+#                       "2": print_donor_report,
+#                       "3": db.save_letters_to_disk,
+#                       "4": quit}
+#
+#     while True:
+#         selection = main_menu_selection()
+#         try:
+#             selection_dict[selection]()
+#         except KeyError:
+#             print("error: menu selection is invalid!")
+#
+# if __name__ == "__main__":
+#
+#     main()

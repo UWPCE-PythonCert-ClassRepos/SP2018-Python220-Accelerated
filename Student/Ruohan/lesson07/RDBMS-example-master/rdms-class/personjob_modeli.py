@@ -33,6 +33,7 @@ class Job(BaseModel):
     job_name = CharField(primary_key = True, max_length = 30)
     start_date = DateField(formats = 'YYYY-MM-DD')
     end_date = DateField(formats = 'YYYY-MM-DD')
+    job_duration = IntegerField()
     salary = DecimalField(max_digits = 7, decimal_places = 2)
     person_employed = ForeignKeyField(Person, related_name='was_filled_by', null = False)
 
@@ -44,7 +45,6 @@ class Department(BaseModel):
     department_number = CharField(primary_key = True, max_length = 4)
     department_name = CharField(max_length = 30)
     manager = CharField(max_length = 30)
-    job_duration = IntegerField()
     job_included = ForeignKeyField(Job, related_name='was_in', null = False)
 
 class PersonNumKey(BaseModel):
