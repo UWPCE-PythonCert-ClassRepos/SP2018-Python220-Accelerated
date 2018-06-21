@@ -1,0 +1,9 @@
+If you put an odd number for n, when you half n it will never become 2.
+It will keep halving forever. As the n function, gets deeper into recursion.
+The call stack gets much deeper and runs slower.
+
+
+I also could not find the file for the exercise.
+
+But i would theoretically, utilize n and s to dig into the function. I would
+use b because I wouldn't select a large n. 
