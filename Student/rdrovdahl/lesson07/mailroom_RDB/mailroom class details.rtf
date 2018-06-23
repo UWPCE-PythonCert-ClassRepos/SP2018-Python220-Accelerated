@@ -1,0 +1,349 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+}
+{\colortbl;\red255\green255\blue255;\red46\green151\blue31;\red4\green4\blue4;\red48\green232\blue26;
+\red239\green239\blue239;\red163\green37\blue27;\red252\green35\blue25;\red196\green6\blue255;\red194\green102\blue28;
+}
+{\*\expandedcolortbl;;\cssrgb\c20961\c64158\c15777;\cssrgb\c1294\c1294\c1294;\cssrgb\c18251\c90714\c13124;
+\cssrgb\c94962\c94962\c94962;\cssrgb\c70575\c21649\c13659;\cssrgb\c100000\c23715\c11979;\cssrgb\c81919\c23714\c100000;\cssrgb\c80989\c47739\c14240;
+}
+\margl1440\margr1440\vieww17620\viewh23080\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 This guide is for the original class based mailroom solution.  It will be modified as mailroom is refactored to use databases\ulnone \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 def get_sample_data():\
+
+\b0 	return [Donor('Iron Man', [10, 20, 30], 'Hero', 'USA),\
+		Donor('Thor', .....\
+\
+
+\b db = DonorDB(get_sample_data())\
+
+\b0 	This command accomplishes two things:\
+		1 - A complete set of Donor() class objects is created for each item in the persistent donor list\
+		2 - A dictionary object is created in the DonorDB() class which has a key/value pair for each Donor() object.  The keys are the normalized names and the values are the associated Donor() class objects.\
+
+\b \
+\
+	Donor() attributes:\
+		name\
+		donations\
+		affiliation\
+		location\
+	Donor() properties\
+		total_donations\
+		average_donations\
+	Donor() methods:\
+		normalize_name\
+		add_donation\
+\
+	DonorDB() attributes:\
+		donor_data\
+	DonorDB() properties:\
+		donors\
+	DonorDB() methods:\
+		list_donors\
+		find_donor\
+		add_donor\
+		gen_letter\
+		save_letters_to_disk\
+		sort_key\
+		generate_donor_report\
+\
+class Donor()\
+	__init__(self, name, donations, affiliation, location):\
+
+\b0 		self.norm_name = self.normalize_name(name)\
+		self.name = name.strip()\
+		self.donations = [] or list(donations)\
+		self.affiliation = affiliation\
+		self.location = location\
+\
+	@staticmethod\
+
+\b 	normalize_name(name):\
+
+\b0 		return...\
+\
+	@property\
+
+\b 	total_donations(self):\
+
+\b0 		return...\
+\
+	@property\
+
+\b 	average_donations(self):\
+
+\b0 		return...\
+	\
+
+\b 	add_donation(self, amount):\
+
+\b0 		self.donations.append(amount)\
+\
+\
+
+\b class DonorDB():\
+	__init__(self, donors):\
+
+\b0 		self.donor_data = \{\} or \{d.norm_name: d for d in donors\}\
+	\
+	@property\
+
+\b 	donors(self):\
+
+\b0 		return self.donor_data.values()\
+\
+
+\b 	list_donors(self):\
+
+\b0 		listing = ["Donor list:"]\
+        		for donor in self.donors:\
+            		listing.append(donor.name)\
+        		return "\\n".join(listing)\
+\
+
+\b 	find_donor(self, name)\
+
+\b0 		return self.donor_data.get(Donor.normalize_name(name))\
+\
+
+\b 	add_donor(self, name):\
+
+\b0 		donor = Donor(name)   # creates the new object in the Donor() class\
+		self.donor_data[donor.norm_name] = donor   # adds the new object to the donor_data dictionary\
+		return donor   # return Donor() object for new name\
+\
+
+\b 	gen_letter(self, donor):\
+
+\b0 		return letter\
+	\
+
+\b 	save_letters_to_disk(self):\
+
+\b0 		creates \'91./letters\'92 directory\
+		iterates through self.donor_data.values() and creates letters for each donor using donor.name calling on self.gen_letter(donor) for the content\
+		no return\
+\
+	@staticmethod\
+
+\b 	sort_key(item):\
+
+\b0 		sort key used in the generate_donor_report() method\
+\
+
+\b 	generate_donor_report(self):\
+
+\b0 		returns a donors report sorted by total donations\
+\
+	\
+\
+
+\b DonorDB() Class Examples:\
+
+\b0 In the __init__ method, self.donor_data is defined as a dictionary of objects where:\
+	the key is the object.norm_name\
+	the value is the object
+\b \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\b0\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 47
+\f1\b0 \cf2 ]: \cf5 db.donor_data\
+\cf6 Out[
+\f2\b \cf7 47
+\f1\b0 \cf6 ]: \cf5 \
+\{'blackpanther': <__main__.Donor at 0x1032ed048>,\
+ 'captainamerica': <__main__.Donor at 0x1033b99b0>,\
+ 'hawkeye': <__main__.Donor at 0x1033b9d68>,\
+ 'ironman': <__main__.Donor at 0x1033b9b00>,\
+ 'nickfury': <__main__.Donor at 0x1033b9748>,\
+ 'redskull': <__main__.Donor at 0x1032ed0f0>,\
+ 'thor': <__main__.Donor at 0x1033b9f28>,\
+ 'ultron': <__main__.Donor at 0x1033b9898>,\
+ 'warmachine': <__main__.Donor at 0x1032ed128>,\
+ 'wintersoldier': <__main__.Donor at 0x1033b9e80>\}
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+The donors property method returns a list of the db.donor_data values.  Essentially, this is just a list of Donor class objects\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 49
+\f1\b0 \cf2 ]: 
+\f2\b for
+\f1\b0 \cf5  d 
+\f2\b \cf8 in
+\f1\b0 \cf5  db.donors:\
+\cf2     ...: \cf5     \cf2 print\cf5 (d)\
+\cf2     ...: \cf5     \
+<__main__.Donor object at 0x1033b9b00>\
+<__main__.Donor object at 0x1033b9f28>\
+<__main__.Donor object at 0x1033b9e80>\
+<__main__.Donor object at 0x1033b99b0>\
+<__main__.Donor object at 0x1033b9748>\
+<__main__.Donor object at 0x1033b9d68>\
+<__main__.Donor object at 0x1033b9898>\
+<__main__.Donor object at 0x1032ed048>\
+<__main__.Donor object at 0x1032ed128>\
+<__main__.Donor object at 0x1032ed0f0>\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 The list_donors method iterates through the db.donors property and returns a list of name attributes from the Donor class objects\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 50
+\f1\b0 \cf2 ]: \cf5 db.list_donors()\
+\cf6 Out[
+\f2\b \cf7 50
+\f1\b0 \cf6 ]: \cf5 'Donor list:\\nIron Man\\nThor\\nWinter Soldier\\nCaptain America\\nNick Fury\\nHawkeye\\nUltron\\nBlack Panther\\nWar Machine\\nRed Skull'\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+The find_donor method returns the original Donors object for the name given as the argument.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 69
+\f1\b0 \cf2 ]: \cf5 db.find_donor(\cf9 'Thor'\cf5 )\
+\cf6 Out[
+\f2\b \cf7 69
+\f1\b0 \cf6 ]: \cf5 <__main__.Donor at 0x1032cdf28>\
+\
+\cf2 In [
+\f2\b \cf4 70
+\f1\b0 \cf2 ]: \cf5 db.find_donor(\cf9 'Thor'\cf5 ).name\
+\cf6 Out[
+\f2\b \cf7 70
+\f1\b0 \cf6 ]: \cf5 'Thor'\
+\
+\cf2 In [
+\f2\b \cf4 71
+\f1\b0 \cf2 ]: \cf5 db.find_donor(\cf9 'Thor'\cf5 ).donations\
+\cf6 Out[
+\f2\b \cf7 71
+\f1\b0 \cf6 ]: \cf5 [50, 25, 100]\
+\
+\cf2 In [
+\f2\b \cf4 72
+\f1\b0 \cf2 ]: \cf5 db.find_donor(\cf9 'Thor'\cf5 ).affiliation\
+\cf6 Out[
+\f2\b \cf7 72
+\f1\b0 \cf6 ]: \cf5 'Hero'\
+\
+\cf2 In [
+\f2\b \cf4 73
+\f1\b0 \cf2 ]: \cf5 db.find_donor(\cf9 'Thor'\cf5 ).location\
+\cf6 Out[
+\f2\b \cf7 73
+\f1\b0 \cf6 ]: \cf5 'Earth'\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\
+Add a donor object using the add_donor() method\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 85
+\f1\b0 \cf2 ]: \cf5 db.add_donor(\cf9 'Mr X'\cf5 )\
+\cf6 Out[
+\f2\b \cf7 85
+\f1\b0 \cf6 ]: \cf5 <__main__.Donor at 0x103366898>\
+\
+\cf2 In [
+\f2\b \cf4 86
+\f1\b0 \cf2 ]: print\cf5 (db.list_donors())\
+Donor list:\
+Iron Man\
+Thor\
+Winter Soldier\
+Captain America\
+Nick Fury\
+Hawkeye\
+Ultron\
+Black Panther\
+War Machine\
+Red Skull\
+Mr X\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 87
+\f1\b0 \cf2 ]: \cf5 db.find_donor(\cf9 'Mr X'\cf5 ).donations\
+\cf6 Out[
+\f2\b \cf7 87
+\f1\b0 \cf6 ]: \cf5 []\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+How to use db.gen_letter\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 119
+\f1\b0 \cf2 ]: \cf5 letter = db.gen_letter(db.find_donor(\cf9 'Thor'\cf5 ))\
+\
+\cf2 In [
+\f2\b \cf4 120
+\f1\b0 \cf2 ]: print\cf5 (letter)\
+Dear Thor,\
+              Thank you for your very kind donation of $100.00.\
+              It will be put to very good use.\
+                             Sincerely,\
+                                -The Team\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\
+How to use generate_donor_reoprt\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 In [
+\f2\b \cf4 5
+\f1\b0 \cf2 ]: print\cf5 (db.generate_donor_report())\
+Donor Name                | Total Given | Num Gifts | Average Gift\
+------------------------------------------------------------------\
+Mr X                        $      0.00           0   $       0.00\
+War Machine                 $     20.00           2   $      10.00\
+Captain America             $     70.00           2   $      35.00\
+Hawkeye                     $    145.00           3   $      48.33\
+Thor                        $    175.00           3   $      58.33\
+Winter Soldier              $    840.00           2   $     420.00\
+Black Panther               $   1050.00           3   $     350.00\
+Red Skull                   $   6000.00           3   $    2000.00\
+Nick Fury                   $ 101545.00           3   $   33848.33\
+Ultron                      $ 140000.00           3   $   46666.67\
+Iron Man                    $ 151000.00           3   $   50333.33\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
