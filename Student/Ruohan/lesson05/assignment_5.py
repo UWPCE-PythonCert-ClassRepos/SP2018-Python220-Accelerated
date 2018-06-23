@@ -1,4 +1,5 @@
 import logging
+import logging.handlers
 
 format = "%(asctime)s %(filename)s:%(lineno)-3d %(levelname)s %(message)s"
 format_without_time = "%(filename)s:%(lineno)-4d %(levelname)s %(message)s"
@@ -14,7 +15,7 @@ console_handler = logging.StreamHandler()        # Add this line
 console_handler.setLevel(logging.DEBUG)          # Add this line
 console_handler.setFormatter(formatter_withtime)          # Add this line
 
-server_handler = logging.SysLogHandler()        # Add this line
+server_handler = logging.handlers.SysLogHandler(address="/var/run/syslog")        # Add this line
 server_handler.setLevel(logging.ERROR)          # Add this line
 server_handler.setFormatter(formatter_withouttime)
 

@@ -32,7 +32,7 @@ def dotal_donation():
 def last_donation():
     subq = Donor.select(Donor, fn.MAX(Donation.donation_time).alias('donation_last'))
     query = (Donor
-             .select()
+             .select(Donor)
              .join(Donation, JOIN.LEFT_OUTER)
              .where(Donation.donation_time == subq))
     for donor in query:
@@ -42,6 +42,8 @@ def last_donation():
 num_donation()
 dotal_donation()
 last_donation()
+
+
 
 database.close()
 

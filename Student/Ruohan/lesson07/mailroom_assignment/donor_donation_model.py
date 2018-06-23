@@ -22,9 +22,7 @@ class Donor(BaseModel):
     donor_name = CharField(max_length = 30)
     city = CharField(max_length = 30, null = True)
     phone_number = CharField(max_length = 30, null = True)
-    # last_donation = DecimalField(decimal_places = 2)
-    # average_donation = DecimalField(decimal_places = 2)
-    # total_donation = DecimalField(decimal_places = 2)
+
 
 class Donation(BaseModel):
     amount = DecimalField(decimal_places = 2)
