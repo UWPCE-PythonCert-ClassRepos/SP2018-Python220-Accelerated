@@ -9,13 +9,16 @@ class TestRomanToInteger(TestCase):
 
         for letter, number in zip(lst_letter, lst_number):
             self.assertEqual(RomanToInt.convert(letter), number)
-            print("pass")
-
-
-        # self.assertEqual(RomanToInt.convert('X'), 10)
     
     def test_double_x(self):
+        self.assertEqual(RomanToInt.convert('III'), 3)
+        self.assertEqual(RomanToInt.convert('IV'), 4)
+        self.assertEqual(RomanToInt.convert('IX'), 9)
         self.assertEqual(RomanToInt.convert('XX'), 20)
+        self.assertEqual(RomanToInt.convert('XXVII'), 27)
+        self.assertEqual(RomanToInt.convert('XXX'), 30)
+        self.assertEqual(RomanToInt.convert('XL'), 40)
+        self.assertEqual(RomanToInt.convert('XC'), 90)
 
 
 
