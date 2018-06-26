@@ -6,7 +6,7 @@ tests the solution to the generator lab
 can be run with py.test or nosetests
 """
 
-import generator_solution as gen
+import lesson01.generator_solution as gen
 
 
 def test_intsum():
@@ -56,6 +56,12 @@ def test_fib():
 
 
 def test_prime():
-    g = gen.prime(9)
+    g = gen.prime()
     for val in [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]:
         assert next(g) == val
+
+
+test_doubler()
+test_fib()
+test_intsum()
+test_prime()

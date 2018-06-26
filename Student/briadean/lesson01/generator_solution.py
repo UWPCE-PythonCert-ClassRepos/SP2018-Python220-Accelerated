@@ -2,6 +2,7 @@
 
 """Exercise writing standard generators"""
 
+
 # Sum of integers
 def intsum():
     i = 0
@@ -11,8 +12,11 @@ def intsum():
         i += 1
         current_val += i
 
-""" There is a test for intsum2, however there is no direction as to how you would like us to differentiate from intsum. """
+
+""" There is a test for intsum2, however there is no direction
+as to how you would like us to differentiate from intsum. """
 intsum2 = intsum
+
 
 # Doubler
 def doubler():
@@ -32,13 +36,12 @@ def fib():
 
 
 # Prime numbers
-def prime(n):
-    i = 2
-    while i < n:
-        prime = True
-        for a in range(2, i):
-            if i % a == 0:
-                prime = False
-                break
-        if prime:
-            yield i
+def prime():
+    while True:
+        for i in range(2, 100):
+            prime = True
+            for x in range(2, i):
+                if i % x == 0:
+                    prime = False
+            if prime is True:
+                yield i
