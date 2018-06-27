@@ -7,7 +7,8 @@ json_save implemented as a decorator
 import json
 from pathlib import Path
 
-from .json_save_meta import *
+from json_save_meta import *
+
 
 
 # assorted methods that will need to be added to the decorated class:
