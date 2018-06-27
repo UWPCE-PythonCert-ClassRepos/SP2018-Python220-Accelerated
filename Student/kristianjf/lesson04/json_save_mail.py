@@ -10,7 +10,6 @@ class JsonDh:
     '''Create class that uses js.json_save metaclass decorator'''
     Donors = js.List()
     def __init__(self, dh):
-
         self.Donors = [{'name': donor_object.name, 'donations': donor_object.donations} \
         for donor_object in dh.donors.values()]
     def save(self):
