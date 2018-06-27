@@ -14,6 +14,7 @@ class Locke:
     def __enter__(self):
         print("Stopping the pumps.\n"
               "Opening the doors.\n")
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if not self.locke_error:
@@ -35,6 +36,3 @@ boats = 8
 
 with large_locke as lock:
     lock.move_boats_through(boats)
-
-# AttributeError: 'NoneType' object has no attribute 'move_boats_through' for line 37. I honestly don't understand
-# how how that function is not an attribute :(
