@@ -63,7 +63,7 @@ def get_donation_sample_data():
 
 AMOUNT = 0
 DONATION_TIME = 1
-DONOR_ID = 2
+DONATION_DONORID = 2
 
 donations = get_donation_sample_data()
 
@@ -73,7 +73,7 @@ for donation in donations:
             new_donation = Donation.create(
                 amount = donation[AMOUNT],
                 donation_time = donation[DONATION_TIME],
-                donor_id = donation[DONOR_ID])
+                donation_donorid = donation[DONATION_DONORID])
             new_donation.save()
     except Exception as er:
         logger.info(f'Error creating = {donation[AMOUNT]} donation time is {donation[DONATION_TIME]} with error {er}')

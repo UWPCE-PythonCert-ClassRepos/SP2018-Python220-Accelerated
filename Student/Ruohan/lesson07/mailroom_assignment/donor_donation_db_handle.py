@@ -4,7 +4,8 @@
 
 """
 
-from creat_donor_donation_db import *
+from donor_donation_model import *
+import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -14,7 +15,7 @@ def num_donation():
              .select(Donor, fn.COUNT(Donation.amount).alias('donation_count'))
              .join(Donation, JOIN.LEFT_OUTER)
              .group_by(Donor)
-             .order_by(Donor.donor_name))
+             .order_by(Donor.donor_id))
 
     for donor in query:
         logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} has made {donor.donation_count} times donation')
@@ -24,26 +25,34 @@ def dotal_donation():
              .select(Donor, fn.SUM(Donation.amount).alias('donation_total'))
              .join(Donation, JOIN.LEFT_OUTER)
              .group_by(Donor)
-             .order_by(Donor.donor_name))
+             .order_by(Donor.donor_id))
     for donor in query:
         logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} has made ${donor.donation_total} in total')
 
 
 def last_donation():
-    subq = Donor.select(Donor, fn.MAX(Donation.donation_time).alias('donation_last'))
     query = (Donor
-             .select(Donor)
-             .join(Donation, JOIN.LEFT_OUTER)
-             .where(Donation.donation_time == subq))
+             .select(Donor, Donation.amount.alias('last_amount'), fn.MAX(Donation.donation_time).alias('last_time'))
+             .join(Donation)
+             .group_by(Donation.donation_donorid)
+             .order_by(Donation.donation_donorid))
     for donor in query:
-        logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} last donation is ${donor.donation_last}')
+        logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} latest donation is ${donor.donation.last_amount}')
+
+def average_donation():
+    query = (Donor
+             .select(Donor, fn.AVG(Donation.amount).alias('donation_average'))
+             .join(Donation, JOIN.LEFT_OUTER)
+             .order_by(Donor.donor_id))
+
+    for donor in query:
+        logger.info(f'Donor id {donor.donor_id} with name {donor.donor_name} average donation is ${donor.donation_average}')
 
 
 num_donation()
 dotal_donation()
 last_donation()
-
-
+average_donation()
 
 database.close()
 

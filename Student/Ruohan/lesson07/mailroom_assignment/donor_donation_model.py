@@ -27,4 +27,4 @@ class Donor(BaseModel):
 class Donation(BaseModel):
     amount = DecimalField(decimal_places = 2)
     donation_time = DateField(formats = 'YYYY-MM-DD')
-    donor_id = ForeignKeyField(Donor)
+    donation_donorid = ForeignKeyField(Donor)
