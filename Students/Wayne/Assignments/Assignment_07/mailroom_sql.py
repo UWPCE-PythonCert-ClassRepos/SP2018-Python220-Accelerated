@@ -2,23 +2,23 @@
 """
 This is an object oriented version
 """
-
-import sqlite3
+import os
+import logging
+import peewee
 import sys
 import math
 from textwrap import dedent
+import datetime
+from donordb_model import *
 
+"""
 
-# Utility so we have data to test with, etc.
-# def get_sample_data():
-#     """
-#     returns a list of donor objects to use as sample data
-#     """
-#     return [Donor("William Gates III", [653772.32, 12.17]),
-#             Donor("Jeff Bezos", [877.33]),
-#             Donor("Paul Allen", [663.23, 43.87, 1.32]),
-#             Donor("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
-#             ]
+Declaring donordb
+
+"""
+
+donorsql = os.path('donor.db')
+donordb = peewee.SqliteDatabase(donorsql)
 
 
 class Donor():
@@ -39,6 +39,17 @@ class Donor():
             self.donations = []
         else:
             self.donations = list(donations)
+            self.donor_id = donor_id
+            self.city
+            self.phone_number
+
+    @staticmethod
+    def donations_rdb(name):
+        query = (Donors.select(Donors, Donation).join(Donation)
+                 .where(Donors.donor_name_normalized == name.lower()))
+        donations = list(d.donation.donation for d in query)
+        return donations
+
 
     @staticmethod
     def normalize_name(name):
@@ -53,28 +64,43 @@ class Donor():
         """
         The most recent donation made
         """
+       query = (Donors.select(Donors, Donation).join(Donation)
+                 .where(Donors.donor_name_normalized == name.lower()))
+        donations = list(d.donations.donation for d in query)
         try:
-            return self.donations[-1]
+            return donations[-1]
         except IndexError:
-            return None
+            return 0
 
     @property
     def total_donations(self):
-        return sum(self.donations) #/ query 
+        query = (Donors.select(Donors, Donations).join(Donations)
+                 .where(Donors.donor_name_normalized == name.lower()))
+        donations = list(d.donations.donation for d in query)
+        return sum(donations)
 
     @property
-    def average_donation(self):
-        return self.total_donations / len(self.donations)
+    def average_donation(name):
+        query = (Donors.select(Donors, Donations).join(Donations)
+                 .where(Donors.donor_name_normalized == name.lower()))
+        donations = list(d.donations.donation for d in query)
+        try:
+            return sum(donations) / len(query)
+        except ZeroDivisionError:
+            return 0
 
-    def add_donation(self, amount):
+    def add_donation(name, amount):
         """
         add a new donation
         """
-        amount = float(amount) #<-- change here? 
+        amount = float(amount)
         if amount <= 0.0:
-            raise ValueError("Donation must be greater than zero")
-        self.donations.append(amount)
-
+            raise ValueError("Invalid Donation Amount")
+        id = Donors.select().where(Donors.donor_name_normalized == name.lower()).get()
+        new_donation = Donations.create(
+            donor=id,
+            donation=amount)
+        new_donation.save()
 
 class DonorDB():
     """
@@ -127,45 +153,164 @@ class DonorDB():
         """
         return self.donor_data.get(Donor.normalize_name(name))
 
-    def add_donor(self, name):
+
+##############################################################################
+#                                                                            #
+#   ****** Build Notes *******                                               #
+#                                                                            #
+#   Taken from personjob_learning_v3_p1.py                                   #
+#                                                                            #
+#    try:                                                                    #
+#       database.connect()                                                   #
+#       database.execute_sql('PRAGMA foreign_keys = ON;')                    #
+#       for person in people:                                                #
+#           with database.transaction():                                     #
+#               new_person = Person.create(                                  #
+#                       person_name = person[PERSON_NAME],                   #
+#                       lives_in_town = person[LIVES_IN_TOWN],               #
+#                       nickname = person[NICKNAME])                         #
+#               new_person.save()                                            #
+#        except Exception as e:                                              #
+#                                                                            #
+#           finally:                                                         #
+#       logger.info('database closes')                                       #
+#       database.close()                                                     #
+#                                                                            #
+#   ****** Data Base Donor Class ******                                      #
+#                                                                            #
+#       donor_id = donor[DONOR_ID],                                          #
+#               donor_name = donor[DONOR_NAME],                              #
+#               city = donor[CITY],                                          #
+#               phone_number = donor[PHONE_NUMBER])                          #
+#                                                                            #
+#                                                                            #
+##############################################################################
+
+
+   def add_donor(self, name):
         """
         Add a new donor to the donor db
         :param: the name of the donor
         :returns: the new Donor data structure
         """
-        # donor = Donor(name)
-        # self.donor_data[donor.norm_name] = donor
-        # return donor
-
-        donorsql - donor.db
-        table_name = donor
-        id_column = donor_id
-        name_column = donor_name
-        city_column = city
-        phonenumber_column = phone_number
-
-        #connecting to the database file 
-
-        conn = sqlite3.connect(sqlite_file)
-        c = conn.cursor()
 
         try:
-            c.execute("INSERT INTO {tn} ({idf}, {idc}, {nc}, {cc}, {pnc}) VALUES (99999, 'test','seattle','555555555')".\
-                format(tn=table_name, idf=id_column, nc=name_column, cc=city_column, pnc= phonenumber_column))
-        except sqlite3.IntegrityError:
-            print('ERROR: ID already exists in PRIMARY KEY column {}'.format(id_column))
+        donordb.connect()
+        donordb.execute_sql('PRAGMA foreign_keys = ON;')
 
-# B) Tries to insert an ID (if it does not exist yet) <----- may be over kill 
-# with a specific value in a second column
-        # c.execute("INSERT OR IGNORE INTO {tn} ({idf}, {idc}, {nc}, {cc}, {pnc}) VALUES (99999, 'test','seattle','555555555')".\
-        #     format(tn=table_name, idf=id_column, nc=name_column, cc=city_column, pnc= phonenumber_column) 
+        for donor in donors:
+            with database.transaction():   
+                new_donor = Donor.create(
+                    donor_id=donorid,
+                    donor_name=donor_name,
+                    donor_city=donor_city,
+                    phone_number=phone_number)
+                new_donor.save()
+        logger.info('new donor has been added and saved')
+                logger.info('display new donor')
+        newdonor = Donor.get(donor_name=donor_name)
 
-# # # C) Updates the newly inserted or pre-existing entry use <-------- for updating 
-# #         c.execute("UPDATE {tn} ({idf}, {idc}, {nc}, {cc}, {pnc}) VALUES (99999, 'test','seattle','555555555')".\
-#                 format(tn=table_name, idf=id_column, nc=name_column, cc=city_column, pnc= phonenumber_column))
+        logger.info(f'{newdonor.donor_name} was recently created')
 
-        conn.commit()
-        conn.close()
+            except Exception as e:
+        logger.info(e)
+
+    finally:
+        donordb.close()
+
+
+##############################################################################
+#                                                                            #
+#   ****** Build Notes *******                                               #
+#                                                                            #
+#   Taken from personjob_learning_v3_p1.py                                   #
+#                                                                            #
+#   ****** Data Base Donor Class ******                                      #
+#                                                                            #
+#               amount = donation[AMOUNT],                                   #
+#               donation_date = donation[DONATION_DATE],                     #
+#               donor_id = donation[DONOR_ID])                               #
+#                                                                            #
+#                                                                            #
+##############################################################################
+
+
+    def add_donation(donor_id, amount)
+    try:
+        donordb.connect()
+        donordb.execute_sql('PRAGMA foreign_keys = ON;')
+
+        donation_date = date.today()
+
+            with database.transaction():   
+                new_donation = Donation.create(
+                    amount=amount,
+                    donation_date=donation_date,
+                    donor_id=donor_id)
+                new_donation.save()
+        logger.info('a new donation has been added and saved')
+                logger.info('display recently added donation')
+        newdonation = Donation.get(donor_name=donor_name)
+
+        logger.info(f'{newdonor.donor_name} was recently created')
+
+            except Exception as e:
+        logger.info(e)
+
+    finally:
+        donordb.close()
+
+
+
+##############################################################################
+#                                                                            #
+#   ****** Build Notes *******                                               #
+#                                                                            #
+#   Taken from personjob_learning_v3_p3.py                                   #
+#                                                                            #
+#    try:                                                                    #
+#       database.connect()                                                   #
+#       database.execute_sql('PRAGMA foreign_keys = ON;')                    #
+#                                                                            #
+#           with database.transaction():                                     #
+#                aperson = Person.get(Person.person_name == 'Andrew')        #
+#                logger.info(f'Trying to delete {aperson.person_name}        #
+#                              who lives in {aperson.lives_in_town}')        #
+#                aperson.delete_instance()                                   #
+#                                                                            #
+#        except Exception as e:                                              #
+#                                                                            #
+#        finally:                                                            #
+#            database.close()                                                #
+#                                                                            #
+#                                                                            #
+#                                                                            #
+#                                                                            #
+##############################################################################
+
+
+    def delete_donor_record(donor_id):
+
+        try:
+            database.connect()
+            database.execute_sql('PRAGMA foreign_keys = ON;')
+
+        for donor in donors:
+            with database.transaction():
+                adonor = Donor.get(Donor.donor_id == '00006')
+                logger.info(f'''Deleting record of {adonor.donor_name} with
+                                Donor id # {adonor.donor_id}''')
+                aperson.delete_instance()
+
+            logger.info('Showing remaining donors')
+            for donor in donors:
+            logger.info(f"{donor.donor_id} | {donor.donor_name} | {donor.donor_city} | {donor.phone_number}")
+
+        except Exception as e:
+            logger.info(e)
+
+        finally:
+            database.close()
 
 
 
@@ -316,12 +461,29 @@ def print_donor_report():
 def quit():
     sys.exit(0)
 
+"""
+
+Updated Main menu to reflect the new functionality from mailroom. The following
+features need to be added for easier usability: 
+
+    * create donor
+    * add a donation 
+    * update donor record 
+    * list all donors
+    * delete a donor 
+
+"""
 
 def main():
     selection_dict = {"1": send_thank_you,
                       "2": print_donor_report,
                       "3": db.save_letters_to_disk,
-                      "4": quit}
+                      "4": 
+                      "5":
+                      "6":
+                      "7":
+                      "8":
+                      "9": quit}
 
     while True:
         selection = main_menu_selection()
