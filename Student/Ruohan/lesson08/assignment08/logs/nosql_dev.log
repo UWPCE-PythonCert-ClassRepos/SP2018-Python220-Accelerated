@@ -1,0 +1,6 @@
+2018-06-26 22:07:42 - INFO - Mongodb example to use data from Furniture module, so get it
+2018-06-26 22:07:42 - INFO - Here is where we use the connect to mongodb.
+2018-06-26 22:07:42 - INFO - Note use of f string to embed the user & password (from the tuple).
+2018-06-26 22:10:21 - INFO - Mongodb example to use data from Furniture module, so get it
+2018-06-26 22:10:21 - INFO - Here is where we use the connect to mongodb.
+2018-06-26 22:10:21 - INFO - Note use of f string to embed the user & password (from the tuple).
