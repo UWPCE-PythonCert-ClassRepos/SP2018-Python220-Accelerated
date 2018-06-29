@@ -1,0 +1,10 @@
+2018-06-07 20:16:35,500 Activity_5.py:24  WARNING The value of i is 50.
+2018-06-07 20:16:35,500 Activity_5.py:28  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-07 20:17:24,372 Activity_5.py:24  WARNING The value of i is 50.
+2018-06-07 20:17:24,372 Activity_5.py:28  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-10 16:33:00,022 Activity_5.py:24  WARNING The value of i is 50.
+2018-06-10 16:33:00,023 Activity_5.py:28  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-10 16:40:32,152 Activity_5.py:24  WARNING The value of i is 50.
+2018-06-10 16:40:32,152 Activity_5.py:28  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-22 17:39:58,599 assignment_5.py:31  WARNING The value of i is 50.
+2018-06-22 17:39:58,599 assignment_5.py:35  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
