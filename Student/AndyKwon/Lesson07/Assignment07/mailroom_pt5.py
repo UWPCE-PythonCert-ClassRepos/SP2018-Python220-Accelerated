@@ -4,9 +4,6 @@
 simple mailroom program for a non profit
 """
 import sys
-from peewee import *
-from model import Donor, Donation
-
 
 
 class Donations():
@@ -22,60 +19,9 @@ class Donations():
         return str(self.donations)
 
     def add_donation(self, name, amount):
-        
-        database = SqliteDatabase('mailroom_database.db')
-
-        database.connect()
-        database.execute_sql('PRAGMA foreign_keys = ON;')
-
-        # checking to see if name exists in Donors db.
-        # not the best way to check... but it works. 
-        try:
-            donor = Donor.get(Donor.donor_name == name) 
-        except:
-            donor = None
-
-        # this instead????
-        # donor = Donor.get_or_none(Donor.donor_name == name)
-
-        # if the name that was entered is not already in the database, create a new Donor.
-        if donor is None:
-            print("{} is a new donor and will be added to the database\n".format(name))
-            city = input("Please enter the city this donor is from:\n")
-            state = input("Please enter the state or country this donor is from:\n")
-
-            new_donor = Donor.create(
-                                    donor_name = name,
-                                    donor_city = city,
-                                    donor_state = state 
-                                    )
-            new_donor.save()
-            print("{} was added to the database! \n".format(name))
-        
-        # if the name does exist int he database of donors, confirms that the donor was found.
-        else:
-            print("{} was found in the database!\n".format(donor))
-
-        # Add the amount of the donation to database.
-
-        new_donation = Donation.create(
-            donation_amount = amount,
-            donation_donor = name)
-        new_donation.save()
-
-        print("{}'s donation amount of ${} was added to the database!".format(name, amount))
-
-        database.close()
-
-        # below was how it was done
-        # self.donations.setdefault(name, []).append(amount)
-        
+        self.donations.setdefault(name, []).append(amount)
 
     def generate_report(self):
-        # generate a report showing all donors, their total donated amount, average 
-        # and count of donations
-
-        # Prepping the header and report list. 
         report = []
         report_data = []
 
@@ -83,24 +29,18 @@ class Donations():
             "Donor Name", "Total Given", "Num Gifts", "Average Gift"))
         divider = "_" * len(header)
 
-        # Accessing the database
         report.append(header)
         report.append(divider)
 
-        database = SqliteDatabase('mailroom_database.db')
+        for key_name in self.donations:
+            name = key_name
+            total_given = sum(self.donations[key_name])
+            total_count = len(self.donations[key_name])
+            avg_given = total_given / total_count
+            report_data.append((name, total_given, total_count, avg_given))
 
-        database.connect()
-        database.execute_sql('PRAGMA foreign_keys = ON;')
-
-        # trying to scan through Donor model, which has each person only once.
-        # Then trying to find all occurences of this donor in Donation.
-        # Get the donation_amount from each donor, put into a list and do the 
-        # necessary math to get to the total given, number of donations and 
-        # the average of their donations.
-
-
-        
-        report_data.append((donor.donor_name, total_given, donation_count, average_given))
+        # Sort with respect to "Total Given" value.
+        report_data.sort(key=donations, reverse=True)
 
         # Adding the data into report with formatting
         for data in report_data:
@@ -110,36 +50,6 @@ class Donations():
         printable_report = ("\n").join(report)
 
         return printable_report
-
-        # ============= Original version below ============= #
-        # report = []
-        # report_data = []
-
-        # header = ("{:<25s} | {:^15s} | {:^10s} | {:15s}".format(
-        #     "Donor Name", "Total Given", "Num Gifts", "Average Gift"))
-        # divider = "_" * len(header)
-
-        # report.append(header)
-        # report.append(divider)
-
-        # for key_name in self.donations:
-        #     name = key_name
-        #     total_given = sum(self.donations[key_name])
-        #     total_count = len(self.donations[key_name])
-        #     avg_given = total_given / total_count
-        #     report_data.append((name, total_given, total_count, avg_given))
-
-        # # Sort with respect to "Total Given" value.
-        # report_data.sort(key=donations, reverse=True)
-
-        # # Adding the data into report with formatting
-        # for data in report_data:
-        #     report.append(
-        #         "{:25s}   ${:14.2f}   {:10d}   ${:11.2f}".format(* data))
-
-        # printable_report = ("\n").join(report)
-
-        # return printable_report
 
     def generate_letter(self):
 
@@ -199,7 +109,7 @@ def thank_you():
                     "2": display_donors,
                     "3": return_to_menu}
 
-    menu_string = """\n== Send a Thank You ===
+    menu_string = """== Send a Thank You ===
 
     1) Add a new donation (creates new donor profile if a new donor is entered)
     2) Display a list of donors
@@ -244,23 +154,8 @@ def add_donation():
 
 
 def display_donors():
-    """
-    Display a list of the donors in the database
-    """
-    
-    database = SqliteDatabase('mailroom_database.db')
 
-    print("The following is a list of all donors:")
-
-    database.connect()
-    database.execute_sql('PRAGMA foreign_keys = ON;')
-
-    for donor in Donor:
-        print(donor.donor_name)
-    
-    database.close()
-
-    # print(donation_db.names_of_donors())
+    print(donation_db.names_of_donors())
 
 
 def donations(keys):
@@ -316,25 +211,6 @@ def selection(arg_dict, answer):
 def return_to_menu():
 
     return True
-
-
-def delete_donor(name):
-    """
-    Haven't really tested this code
-    """
-
-    # database.connect()
-    # database.execute_sql('PRAGMA foreign_keys = ON;')
-
-    # donor = Donor.get_or_none(Donor.donor_name == name)
-
-    # # if there is a match, delete
-    # if donor is not None:
-    #     donor.delete_instance()
-
-    # database.close()
-
-    pass
 
 # -------------------------------------------------------------
 

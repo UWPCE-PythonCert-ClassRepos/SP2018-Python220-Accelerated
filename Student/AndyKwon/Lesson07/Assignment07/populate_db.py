@@ -56,9 +56,8 @@ def populate_donations():
                                           )
             new_donation.save()
 
-    # i = 0
-    # for i in ranging(len(Donation)-1):
-    #     print(Donation[i])
+    for donation in Donation:
+        print(donation)
 
 if __name__ == "__main__":
     populate_donors()
