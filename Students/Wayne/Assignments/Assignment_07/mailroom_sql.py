@@ -5,7 +5,7 @@ This is an object oriented version
 import os
 import pprint as p
 import logging
-import peewee
+# import peewee
 import sys
 import math
 from textwrap import dedent
@@ -20,8 +20,8 @@ Declaring donordb
 """
 
 donorsql = os.path.abspath('donor.db')
-donordb = peewee.SqliteDatabase(donorsql)
-
+# donordb = peewee.SqliteDatabase(donorsql)
+donordb = sqlite3.connect(donorsql)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ class Donor():
     class to hold the information about a single donor
     """
 
-    def __init__(self, name, donations=None):
+    def __init__(self, name, donor_id, donations=None):
         """
         create a new Donor object
         :param name: the full name of the donor
@@ -47,15 +47,9 @@ class Donor():
         else:
             self.donations = list(donations)
             self.donor_id = donor_id
-            self.city
-            self.phone_number
+            self.city = city
+            self.phone_number = phone_number
 
-    # @staticmethod
-    # def donations_rdb(name):
-    #     query = (Donors.select(Donors, Donation).join(Donation)
-    #              .where(Donors.donor_name_normalized == name.lower()))
-    #     donations = list(d.donation.donation for d in query)
-    #     return donations
 
 
     @staticmethod
@@ -66,52 +60,8 @@ class Donor():
         """
         return name.lower().strip().replace(" ", "")
 
-    @property
-    # def last_donation(self):
-    #     """
-    #     The most recent donation made
-    #     """
-    #    query = (Donors.select(Donors, Donation).join(Donation)
-    #              .where(Donors.donor_name_normalized == name.lower()))
-    #     donations = list(d.donations.donation for d in query)
-    #     try:
-    #         return donations[-1]
-    #     except IndexError:
-    #         return 0
 
-    # @property
-    def list_donors():
 
-        with donordb:
-            cur = donordb.cursor()
-
-            cur.execute(
-                        '''SELECT 
-                                 donor_id
-                                ,sum(dn.amount) as donor_amount
-                           FROM donor d
-                           LEFT OUTER JOIN donation dn 
-                           on d.donor_id = dn.donation_id
-                           Group by donor_id 
-                           Order by donor_id asc
-                        '''
-                        )
-
-    # def total_donations(self):
-    #     query = (Donors.select(Donors, Donations).join(Donations)
-    #              .where(Donors.donor_name_normalized == name.lower()))
-    #     donations = list(d.donations.donation for d in query)
-    #     return sum(donations)
-
-    @property
-    def average_donation(name):
-        query = (Donors.select(Donors, Donations).join(Donations)
-                 .where(Donors.donor_name_normalized == name.lower()))
-        donations = list(d.donations.donation for d in query)
-        try:
-            return sum(donations) / len(query)
-        except ZeroDivisionError:
-            return 0
 
     def add_donation(name, amount):
         """
@@ -158,47 +108,11 @@ class DonorDB():
         """
         return self.donor_data.values()
 
-    # def list_donors(self):  #<---- select * from donors 
-    #     """
-    #     creates a list of the donors as a string, so they can be printed
-    #     Not calling print from here makes it more flexible and easier to
-    #     test
-    #     """
-    #     listing = ["Donor list:"]
-    #     for donor in self.donors:
-    #         listing.append(donor.name)
-    #     return "\n".join(listing)
-
-    def find_donor(self, name):
-        """
-        find a donor in the donor db
-        :param: the name of the donor
-        :returns: The donor data structure -- None if not in the self.donor_data
-        """
-        return self.donor_data.get(Donor.normalize_name(name))
-
 
 ##############################################################################
 #                                                                            #
 #   ****** Build Notes *******                                               #
 #                                                                            #
-#   Taken from personjob_learning_v3_p1.py                                   #
-#                                                                            #
-#    try:                                                                    #
-#       database.connect()                                                   #
-#       database.execute_sql('PRAGMA foreign_keys = ON;')                    #
-#       for person in people:                                                #
-#           with database.transaction():                                     #
-#               new_person = Person.create(                                  #
-#                       person_name = person[PERSON_NAME],                   #
-#                       lives_in_town = person[LIVES_IN_TOWN],               #
-#                       nickname = person[NICKNAME])                         #
-#               new_person.save()                                            #
-#        except Exception as e:                                              #
-#                                                                            #
-#           finally:                                                         #
-#       logger.info('database closes')                                       #
-#       database.close()                                                     #
 #                                                                            #
 #   ****** Data Base Donor Class ******                                      #
 #                                                                            #
@@ -210,43 +124,40 @@ class DonorDB():
 #                                                                            #
 ##############################################################################
 
-    def add_donor(self, name):
+    def add_donor():
         """
         Add a new donor to the donor db
         :param: the name of the donor
         :returns: the new Donor data structure
         """
 
+        donor_id = '00006'
+        donor_name = 'Weezy'
+        city = 'Miami'
+        phone_number = '5555555555'
+
         try:
-            donordb.connect()
-            donordb.execute_sql('PRAGMA foreign_keys = ON;')
+            with donordb:
+                # conn = donordb.connect()
+                cur = donordb.cursor()
 
-            for donor in donors:
-                with database.transaction():   
-                    new_donor = Donor.create(
-                        donor_id=donorid,
-                        donor_name=donor_name,
-                        donor_city=donor_city,
-                        phone_number=phone_number)
-                    new_donor.save()
-            logger.info('new donor has been added and saved')
-            logger.info('display new donor')
-            newdonor = Donor.get(donor_name=donor_name)
-
-            logger.info('recently added a new donor to the database')
+            cur.execute(
+                        '''INSERT INTO donor (donor_id, donor_name, city, phone_number)
+                           Values (?, ?, ?, ?)
+                        ''', (donor_id, donor_name, city, phone_number)
+                       )
 
         except Exception as e:
             logger.info(e)
 
         finally:
-            donordb.close()
+            donordb.commit()
 
 
 ##############################################################################
 #                                                                            #
 #   ****** Build Notes *******                                               #
 #                                                                            #
-#   Taken from personjob_learning_v3_p1.py                                   #
 #                                                                            #
 #   ****** Data Base Donor Class ******                                      #
 #                                                                            #
@@ -258,33 +169,102 @@ class DonorDB():
 ##############################################################################
 
 
-    def add_donation(donor_id, amount):
+    def add_donation():
+  
+        """
+        Adds a new donation record into the donation table 
+        """
+
+        amount = '150000'
+        donation_date = str(datetime.datetime.now().strftime('%Y-%m-%d'))
+        donor_id = '00006'
+
         try:
-            donordb.connect()
-            donordb.execute_sql('PRAGMA foreign_keys = ON;')
+            with donordb:
+                # conn = donordb.connect()
+                cur = donordb.cursor()
 
-            donation_date = date.today()
-
-            with database.transaction():   
-                new_donation = Donation.create(
-                    amount=amount,
-                    donation_date=donation_date,
-                    donor_id=donor_id)
-                new_donation.save()
-            logger.info('a new donation has been added and saved')
-            logger.info('display recently added donation')
-            newdonation = Donation.get(donor_name=donor_name)
-
-            logger.info('a new donation was recently created')
+            cur.execute(
+                        '''INSERT INTO donation(
+                                                amount,
+                                                donation_date,
+                                                donor_id
+                                               )
+                               Values (?, ?, ?)
+                        ''', (amount, donation_date, donor_id)
+                       )
 
         except Exception as e:
             logger.info(e)
 
         finally:
-            donordb.close()
+            donordb.commit()
 
     """
-    Generates the donors list using SQL 
+    updates the donor table
+    """
+
+    def update_donor_info():
+
+        donor_id = '00006'
+        city = 'Riverside'
+
+        try:
+            with donordb:
+                # conn = donordb.connect()
+                cur = donordb.cursor()
+
+            cur.execute(
+                        '''Update donor
+                           Set city = (?)
+                           Where donor_id = (?)
+                        ''', (city, donor_id)
+                       )
+
+            updates = '''{donor_id} has been updated
+            with a new city: {city}'''.format(donor_id=donor_id, city=city)
+
+            print(updates)
+
+        except Exception as e:
+            logger.info(e)
+
+        finally:
+            donordb.commit()
+        """
+        Deletes a record from the donor table 
+        """
+
+    def delete_a_donor():
+
+        donor_id = '00006'
+
+        try:
+            with donordb:
+
+                cur = donordb.cursor()
+
+            cur.execute(
+                        '''Delete 
+                           from donor
+                           Where donor_id = (?)
+                        ''', (donor_id,)
+                       )
+
+            deletesuser = '''{donor_id} has been removed from the database
+            the database'''.format(donor_id=donor_id)
+
+            print(deletesuser)
+
+        except Exception as e:
+            logger.info(e)
+
+        finally:
+            donordb.commit()
+
+    """
+    Generates the last donations used for sending out letters to the
+    donors
 
     """
 
@@ -295,9 +275,8 @@ class DonorDB():
                 cur = donordb.cursor()
 
                 cur.execute(
-                        '''
- 
-                             SELECT 
+                             '''
+                             SELECT
                                    d.donor_id
                                   ,d.donor_name
                                   ,max(dn.donation_date) as last_donation
@@ -306,9 +285,8 @@ class DonorDB():
                              on d.donor_id = dn.donor_id
                              Group by d.donor_id, d.donor_name
                              Order by d.donor_id asc
-                             )Rep
-                        '''
-                        )
+                             '''
+                            )
 
                 col_name_list = [tuple for tuple in (('DonorID'),
                                                      ('DonorName'),
@@ -321,9 +299,6 @@ class DonorDB():
 
         except Exception as e:
             logger.info(e)
-
-        finally:
-            donordb.close()
 
     """
     Creates a donor list using SQL lite
@@ -339,6 +314,43 @@ class DonorDB():
                 cur.execute(
                             '''SELECT donor_id, donor_name
                                FROM donor'''
+                           )
+
+                col_name_list = [tuple[0] for tuple in cur.description]
+
+                rows = cur.fetchall()
+                p.pprint(col_name_list)
+
+                for row in rows:
+                    p.pprint(row)
+
+        except Exception as e:
+            logger.info(e)
+
+
+##############################################################################
+#                                                                            #
+# Awesome tutorial on passing strings into a SQL query                       #
+# https://www.youtube.com/watch?v=qfGu0fBfNBs                                #
+#                                                                            #
+##############################################################################
+
+    def find_donorid():
+        """
+        Uses a sql query to return the donors name and donor_id 
+        """
+
+        finddonor = ('00002')
+
+        try:
+            with donordb:
+                cur = donordb.cursor()
+
+                cur.execute(
+                            '''SELECT donor_id, donor_name
+                               FROM donor
+                               WHERE  donor_id = (?)
+                            ''', (finddonor,)
                             )
 
                 col_name_list = [tuple[0] for tuple in cur.description]
@@ -352,11 +364,8 @@ class DonorDB():
         except Exception as e:
             logger.info(e)
 
-        finally:
-            donordb.close()
-
     """
-    Generates the donors report using SQL  
+    Generates the donors report using SQL
 
     """
 
@@ -372,7 +381,7 @@ class DonorDB():
                               Rep.donor_id as DonorID
                              ,Rep.donor_name as DonorName
                              ,Rep.donor_amount as DonorAmount
-                             ,Rep.donor_number as DonorNumber
+                             ,Rep.donor_number as NumberofDonations
                              ,Rep.donor_amount/Rep.donor_number as AverageGift
                         FROM
                             (
@@ -405,9 +414,6 @@ class DonorDB():
         except Exception as e:
             logger.info(e)
 
-        finally:
-            donordb.close()
-
 
 ##############################################################################
 #                                                                            #
@@ -436,25 +442,6 @@ class DonorDB():
 ##############################################################################
 
 
-    def delete_donor_record(donor_id):
-
-        try:
-            database.connect()
-            database.execute_sql('PRAGMA foreign_keys = ON;')
-
-        # for donor in donors:
-            with database.transaction():
-                deldonor = Donor.get(Donor.donor_id == '00006')
-                logger.info('Deleting donor record')
-
-                deldonor.delete_instance()
-
-        except Exception as e:
-            logger.info(e)
-
-        finally:
-            database.close()
-
 
     def gen_letter(self, donor):
         """
@@ -477,33 +464,6 @@ class DonorDB():
         # used to sort on name in self.donor_data
         return item[1]
 
-    # def generate_donor_report(self):
-    #     """
-    #     Generate the report of the donors and amounts donated.
-    #     :returns: the donor report as a string.
-    #     """
-    #     # First, reduce the raw data into a summary list view
-    #     report_rows = []
-    #     for donor in self.donor_data.values():
-    #         name = donor.name
-    #         gifts = donor.donations
-    #         total_gifts = donor.total_donations
-    #         num_gifts = len(gifts)
-    #         avg_gift = donor.average_donation
-    #         report_rows.append((name, total_gifts, num_gifts, avg_gift))
-
-    #     # sort the report data
-    #     report_rows.sort(key=self.sort_key)
-    #     report = []
-    #     report.append("{:25s} | {:11s} | {:9s} | {:12s}".format("Donor Name",
-    #                                                             "Total Given",
-    #                                                             "Num Gifts",
-    #                                                             "Average Gift"))
-    #     report.append("-" * 66)
-    #     for row in report_rows:
-    #         report.append("{:25s}   ${:10.2f}   {:9d}   ${:11.2f}".format(*row))
-    #     return "\n".join(report)
-
     def save_letters_to_disk(self):
         """
         make a letter for each donor, and save it to disk.
@@ -522,17 +482,13 @@ class DonorDB():
 #  below is code only for the command line interface.
 
 
-# import sys
-# import math
+def user_id_input():
 
-# # handy utility to make pretty printing easier
-# from textwrap import dedent
-
-# from mailroom import model
-
-# create a DB with the sample data
-# db = DonorDB(get_sample_data())
-
+    userid = input("Enter donor id or 'menu' for main menu:")
+    if userid.lower() -- 'menu':
+        return
+    else:
+        return user_id
 
 def main_menu_selection():
     """
@@ -560,49 +516,49 @@ def send_thank_you():
     # Read a valid donor to send a thank you from, handling special commands to
     # let the user navigate as defined.
     while True:
-        name = input("Enter a donor's name"
-                     "(or 'list' to see all donors or 'menu' to exit)> ").strip()
-        if name == "list":
-            print(db.list_donors())
-        elif name == "menu":
+        user_id = input("Enter a donor'id to see a desired donor"
+                       "(or 'list' to see all donors or 'menu' to exit)> ").strip()
+        if user_id == "list":
+            print(DonorDB.list_donors())
+        elif user_id == "menu":
             return
         else:
             break
 
     # Now prompt the user for a donation amount to apply. Since this is
     # also an exit point to the main menu, we want to make sure this is
-    # done before mutating the db.
-    while True:
-        amount_str = input("Enter a donation amount (or 'menu' to exit)> ").strip()
-        if amount_str == "menu":
-            return
-        # Make sure amount is a valid amount before leaving the input loop
-        try:
-            amount = float(amount_str)
-            # extra check here -- unlikely that someone will type "NaN", but
-            # it IS possible, and it is a valid floating point number:
-            # http://en.wikipedia.org/wiki/NaN
-            if math.isnan(amount) or math.isinf(amount) or round(amount, 2) == 0.00:
-                raise ValueError
-        # in this case, the ValueError could be raised by the float() call, or by the NaN-check
-        except ValueError:
-            print("error: donation amount is invalid\n")
-        else:
-            break
+    # # done before mutating the db.
+    # while True:
+    #     amount_str = input("Enter a donation amount (or 'menu' to exit)> ").strip()
+    #     if amount_str == "menu":
+    #         return
+    #     # Make sure amount is a valid amount before leaving the input loop
+    #     try:
+    #         amount = float(amount_str)
+    #         # extra check here -- unlikely that someone will type "NaN", but
+    #         # it IS possible, and it is a valid floating point number:
+    #         # http://en.wikipedia.org/wiki/NaN
+    #         if math.isnan(amount) or math.isinf(amount) or round(amount, 2) == 0.00:
+    #             raise ValueError
+    #     # in this case, the ValueError could be raised by the float() call, or by the NaN-check
+    #     except ValueError:
+    #         print("error: donation amount is invalid\n")
+    #     else:
+    #         break
 
     # If this is a new user, ensure that the database has the necessary
     # data structure.
-    donor = db.find_donor(name)
+    donor = DonorDB.find_donorid(user_id)
     if donor is None:
-        donor = db.add_donor(name)
+        donor = print('Add a New User') ##DonorDB.add_donor(user_id)
 
     # Record the donation
-    donor.add_donation(amount)
-    print(db.gen_letter(donor))
+    # donor.add_donation(amount)
+    # print(db.gen_letter(donor))
 
 
-def print_donor_report():
-    print(db.generate_donor_report())
+# def print_donor_report():
+#     print(db.generate_donor_report())
 
 
 def quit():
@@ -627,9 +583,9 @@ def main():
                       # "3": save_letters_to_disk,
                       "4": DonorDB.add_donor,
                       "5": DonorDB.add_donation,
-                      # "6": update_donor_info,
+                      "6": DonorDB.update_donor_info,
                       "7": DonorDB.list_donors,
-                      "8": DonorDB.delete_donor_record,
+                      "8": DonorDB.delete_a_donor,
                       "9": quit}
 
     while True:
