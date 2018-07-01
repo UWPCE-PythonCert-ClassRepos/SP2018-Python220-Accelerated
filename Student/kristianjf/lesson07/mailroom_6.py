@@ -47,12 +47,7 @@ class DonationTable(BaseModel):
     fld_donations = IntegerField()
 
 database = SqliteDatabase('donor.db')
-# '''Create Donor Table'''
-# if 'DonorTable'.lower() not in database.get_tables():
-#     logger.info('Creating Donor Table')
-#     database.create_tables([DonorTable])
 '''Create Donation Table'''
-# if 'DonationTable'.lower() not in database.get_tables():
 logger.info('Creating Donor and Donation Table')
 database.create_tables([DonorTable, DonationTable])
 
@@ -64,21 +59,23 @@ class Donor():
         # self._normalized_name = name.title()
         self._donations = donations if isinstance(donations, list) else [donations]
         '''Add Donor Record to Table'''
+
         try:
             database.connect()
             database.execute_sql('PRAGMA foreign_keys = ON;')
-            with database.transaction():
-                donor_record = DonorTable.create(fld_name=self._name)
-                # donor_record.save()
-                logger.info(f'Added Donor to Donor Table: {DonorTable.get(DonorTable.fld_name == self._name)}')
+            if not self._name in DonorTable:
+                with database.transaction():
+                    donor_record = DonorTable.create(fld_name=self._name)
+                    # donor_record.save()
+                    logger.info(f'Added Donor to Donor Table: {DonorTable.get(DonorTable.fld_name == self._name)}')
             with database.transaction():
                 for donation in self._donations:
                     donation_record = DonationTable.create(fld_donor=self._name,\
-                    fld_timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),\
                     fld_donations=donation)
                     logger.info(f'Adding Donation to Donor Table: {self._name, donation}')
                     # donation_record.save()
-                logger.info(f'Added Donations to Donor Table: {self._name, donation}')
+                # logger.info(f'Added Donations to Donor Table: {self._name, DonationTable.get(DonationTable.fld_donor == self._name)}')
+                logger.info(f'Added Donations to Donor Table: {self._name, [x.fld_donations for x in DonationTable.select().where(DonationTable.fld_donor == self._name)]}')
         except Exception as e:
             logger.info(f'Error creating = {name, donations}')
             logger.info(e)
@@ -93,25 +90,14 @@ class Donor():
         return self._name
     @property
     def donations(self):
-        # for donor in DonationTable.select().where(DonationTable.fld_donor == self._name):
-        #     return [donor.fld_donations]
-        return self._donations
+        donation_list = []
+        for donor in DonationTable.select().where(DonationTable.fld_donor == self._name):
+            donation_list.append(donor.fld_donations)
+        return donation_list
+        # return self._donations
     @property
     def normalized_name(self):
-        # 'Validate and Return Name Input'
-        # full_name_cap = ''
-        # try:
-        #     for name in self.name.split():
-        #         assert name.isalpha()
-        #         full_name_cap += f'{name.capitalize()} '
-        #     full_name = full_name_cap.strip()
-        # except AssertionError:
-        #     print('Invalid Name. Found non-alphabetic characters')
-        # else:
-        #     return full_name
         return self._name
-    # def __str__(self):
-    #     return self.name
     def donate(self, new_donation):
         self.donations.append(new_donation)
     def metrics(self):
@@ -148,14 +134,6 @@ class DonorHandler:
     def dnr_challenge(self, factor=1, **kwargs):
         new_dh = DonorHandler()
         for donor, donor_object in self.donors.items():
-            # new_d = Donor(donor, list(map(lambda x, y: x*y, \
-            # donor_object.donations, len(donor_object.donations)*[factor])))
-            # new_d = Donor(donor, \
-            # self.dnr_filter(\
-            # list(map(lambda x, y: x*y, donor_object.donations, \
-            # len(donor_object.donations)*[factor])),\
-            # kwargs['min_donation'], kwargs['max_donation']))
-            # new_dh.add_donor(new_d)
             '''Add a new feature to Mailroom using filter so that donations either above
             or below a specified dollar amount are included in the map operations of #1 above.
             You can do this by adding min_donation and max_donation optional keyword parameters
@@ -174,7 +152,7 @@ class DonorHandler:
             map_donations_f = list(map(lambda x, y: x*y, filter_donations,\
             len(filter_donations)*[factor]))
 
-            new_d = Donor(donor, map_donations_f)
+            new_d = Donor(donor+' Projection', map_donations_f)
             new_dh.add_donor(new_d)
         return new_dh
     def dnr_filter(self, lst, min_donation=0, max_donation=10000000):
