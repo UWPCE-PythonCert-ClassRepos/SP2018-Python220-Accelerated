@@ -6,7 +6,7 @@
 
 import pandas as pd
 
-music = pd.read_csv("C:\_Python220AC\SP2018-Python220-Accelerated\Student\WesWang\Lesson2\Assignment\\featuresdf.csv")
+music = pd.read_csv("featuresdf.csv")
 
 def high_energy(music):
   tracks = [(name, artist, energy) for (name, artist, energy) in zip(music.name, music.artists, music.energy) if energy > 0.8]
