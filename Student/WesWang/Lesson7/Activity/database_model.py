@@ -5,7 +5,7 @@ Activity 7
 
 from peewee import *
 
-database = SqliteDatabase('C:\_Python220AC\SP2018-Python220-Accelerated\Student\WesWang\Lesson7\Activity\personjob.db')
+database = SqliteDatabase('personjob.db')
 database.connect()
 database.execute_sql('PRAGMA foreign_keys = ON;')
 
@@ -40,3 +40,4 @@ class Job(BaseModel):
 
 
 database.create_tables([Person, Department, Job])
+database.close()
