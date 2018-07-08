@@ -1,0 +1,24 @@
+ def my_fun(n):
+     if n == 2:
+         return True
+ 
+     return my_fun(n/2)
+
+The code above is a recursion that, if the inputed value “n” is not a power of 2, then the program runs infinitely. The problem is that the function does not have a return false clause that is ever met. 
+
+If n = 5, 
+Goes to 2.5, 1.25, 0.625, etc.
+
+To properly address the False clause, we can add something that immediately stops the recursion if not True...
+
+Such as:
+
+Def my_fun(n):
+    if n < 2:
+        return False
+    if n == 2: 
+        return True
+    
+    return my_fun(n/2)
+
+This way, if n has passed 2, then we can stop the recursion and return False.
