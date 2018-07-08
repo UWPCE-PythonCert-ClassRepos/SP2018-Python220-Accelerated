@@ -5,7 +5,7 @@ import datetime
 
 format = "%(asctime)s %(filename)s:%(lineno)-3d %(levelname)s %(message)s"
 syslog_format = "%(filename)s:%(lineno)-3d %(levelname)s %(message)s"
-timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
 
 formatter = logging.Formatter(format)
 syslog_formatter = logging.Formatter(syslog_format)

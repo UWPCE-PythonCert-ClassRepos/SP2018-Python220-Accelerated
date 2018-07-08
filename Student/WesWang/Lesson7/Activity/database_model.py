@@ -1,6 +1,7 @@
 '''
 Wesley Wang
 Activity 7
+Create personjob database
 '''
 
 from peewee import *
@@ -25,9 +26,9 @@ class Department(BaseModel):
     dpt_number = CharField(primary_key = True ,max_length = 4)
     dpt_name = CharField(max_length = 30)
     dpt_mngr = CharField(max_length = 30)
+    
     class Meta:
-        constraints = [Check('SUBSTR(dpt_number,1) LIKE "[a-z][A-Z]"')]
-
+        constraints = [Check('SUBSTR(dpt_number,1) GLOB "*[A-Za-z]*"')]
 
 class Job(BaseModel):
     job_id = PrimaryKeyField()
