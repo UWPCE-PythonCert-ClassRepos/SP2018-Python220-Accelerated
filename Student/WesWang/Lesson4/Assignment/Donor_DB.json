@@ -1,0 +1,38 @@
+{
+    "__obj_type": "DonorDB",
+    "_donors": [
+        {
+            "__obj_type": "Donor",
+            "_name": "Donor A",
+            "_donations": [
+                10000,
+                5000,
+                3000
+            ]
+        },
+        {
+            "__obj_type": "Donor",
+            "_name": "Donor B",
+            "_donations": [
+                500,
+                1200
+            ]
+        },
+        {
+            "__obj_type": "Donor",
+            "_name": "Donor C",
+            "_donations": [
+                100
+            ]
+        },
+        {
+            "__obj_type": "Donor",
+            "_name": "Wes",
+            "_donations": [
+                500.0,
+                600.0,
+                1000.0
+            ]
+        }
+    ]
+}

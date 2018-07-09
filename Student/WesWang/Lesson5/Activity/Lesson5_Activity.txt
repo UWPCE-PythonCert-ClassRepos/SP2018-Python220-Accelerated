@@ -1,0 +1,64 @@
+import sys
+
+def my_fun(n):
+    if n == 2:
+        return True
+    return my_fun(n/2)
+
+if __name__ == '__main__':
+    n = 10
+    print(my_fun(n))
+
+'''
+Problem with the code:
+
+1. If n is not the power of 2, it will eventually become an odd number, and we do not have a way to handle it.
+2. myfun() will keep subtracting itself by two if n is not the power of 2, and results in infinite recursion until it reaches limit.
+3. As my_fun() gets deeper, n will eventually turn into a decimal, and will never become 2.
+'''
+
+# Debug Log
+C:\_Python220AC\SP2018-Python220-Accelerated\Student\WesWang\Lesson5\Activity>python -m pdb recursive.py 10
+> c:\_python220ac\sp2018-python220-accelerated\student\weswang\lesson5\activity\recursive.py(1)<module>()
+-> import sys
+(Pdb) ll
+  1  -> import sys
+  2
+  3     def my_fun(n):
+  4         if n == 2:
+  5             return True
+  6         return my_fun(n/2)
+  7
+  8     if __name__ == '__main__':
+  9         n = int(sys.argv[1])
+ 10         print(my_fun(n))
+(Pdb) b 6
+Breakpoint 1 at c:\_python220ac\sp2018-python220-accelerated\student\weswang\lesson5\activity\recursive.py:6
+(Pdb) c
+> c:\_python220ac\sp2018-python220-accelerated\student\weswang\lesson5\activity\recursive.py(6)my_fun()
+-> return my_fun(n/2)
+(Pdb) p n
+10
+(Pdb) c
+> c:\_python220ac\sp2018-python220-accelerated\student\weswang\lesson5\activity\recursive.py(6)my_fun()
+-> return my_fun(n/2)
+(Pdb) p n
+5.0
+(Pdb) c
+> c:\_python220ac\sp2018-python220-accelerated\student\weswang\lesson5\activity\recursive.py(6)my_fun()
+-> return my_fun(n/2)
+(Pdb) p n
+2.5
+(Pdb) c
+> c:\_python220ac\sp2018-python220-accelerated\student\weswang\lesson5\activity\recursive.py(6)my_fun()
+-> return my_fun(n/2)
+(Pdb) p n
+1.25
+(Pdb) c
+> c:\_python220ac\sp2018-python220-accelerated\student\weswang\lesson5\activity\recursive.py(6)my_fun()
+-> return my_fun(n/2)
+(Pdb) p n
+0.625
+'''
+n is already below 2 and will keep getting lower infinitely.
+'''
