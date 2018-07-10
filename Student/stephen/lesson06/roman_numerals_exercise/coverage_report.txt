@@ -1,0 +1,17 @@
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/roman_numerals_exercise
+$ coverage run --source=roman_numerals -m unittest test
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.000s
+
+OK
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/roman_numerals_exercise
+$ coverage report -m
+Name                             Stmts   Miss  Cover   Missing
+--------------------------------------------------------------
+roman_numerals\__init__.py           0      0   100%
+roman_numerals\roman_to_int.py      25      0   100%
+--------------------------------------------------------------
+TOTAL                               25      0   100%
+

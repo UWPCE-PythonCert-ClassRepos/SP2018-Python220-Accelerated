@@ -1,0 +1,41 @@
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ flake8 calculator
+calculator\calculator.py:5:45: E261 at least two spaces before inline comment
+calculator\calculator.py:5:46: E262 inline comment should start with '# '
+calculator\calculator.py:7:1: E302 expected 2 blank lines, found 1
+calculator\divider.py:5:1: E302 expected 2 blank lines, found 1
+calculator\exceptions.py:5:1: E302 expected 2 blank lines, found 1
+calculator\multiplier.py:5:1: E302 expected 2 blank lines, found 1
+calculator\subtracter.py:5:1: E302 expected 2 blank lines, found 1
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ flake8 calculator
+calculator\calculator.py:8:1: E302 expected 2 blank lines, found 1
+calculator\divider.py:5:1: E302 expected 2 blank lines, found 1
+calculator\exceptions.py:5:1: E302 expected 2 blank lines, found 1
+calculator\exceptions.py:10:1: W391 blank line at end of file
+calculator\multiplier.py:5:1: E302 expected 2 blank lines, found 1
+calculator\subtracter.py:5:1: E302 expected 2 blank lines, found 1
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ flake8 calculator
+calculator\divider.py:5:1: E302 expected 2 blank lines, found 1
+calculator\exceptions.py:5:1: E302 expected 2 blank lines, found 1
+calculator\exceptions.py:10:1: W391 blank line at end of file
+calculator\multiplier.py:5:1: E302 expected 2 blank lines, found 1
+calculator\subtracter.py:5:1: E302 expected 2 blank lines, found 1
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ flake8 calculator
+calculator\exceptions.py:11:1: W391 blank line at end of file
+calculator\multiplier.py:5:1: E302 expected 2 blank lines, found 1
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ flake8 calculator
+calculator\multiplier.py:5:1: E302 expected 2 blank lines, found 1
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ flake8 calculator
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$

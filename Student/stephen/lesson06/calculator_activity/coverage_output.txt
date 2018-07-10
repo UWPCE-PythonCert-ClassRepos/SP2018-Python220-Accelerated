@@ -1,0 +1,22 @@
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ coverage run --source=calculator -m unittest test.AdderTests test.SubtracterTests test.MultiplierTests test.DividerTests test.CalculatorTests
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.010s
+
+OK
+Cannot divide by zero. Try another number.
+
+ssouk@DESKTOP-9LI20UR MINGW64 ~/Documents/Python/Python Programming 220 AC/Lesson06/calculator_activity
+$ coverage report
+Name                       Stmts   Miss  Cover
+----------------------------------------------
+calculator\__init__.py         0      0   100%
+calculator\adder.py            3      0   100%
+calculator\calculator.py      31      0   100%
+calculator\divider.py          7      0   100%
+calculator\exceptions.py       2      0   100%
+calculator\multiplier.py       3      0   100%
+calculator\subtracter.py       3      0   100%
+----------------------------------------------
+TOTAL                         49      0   100%

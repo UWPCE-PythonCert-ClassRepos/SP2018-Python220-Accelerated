@@ -1,0 +1,73 @@
+{
+    "__obj_type": "DonorDB",
+    "_donors": {
+        "elmer fudd": {
+            "__obj_type": "Donor",
+            "_name": "Elmer Fudd",
+            "_donations": [
+                200.0,
+                45.0,
+                75.0
+            ]
+        },
+        "elon musk": {
+            "__obj_type": "Donor",
+            "_name": "Elon Musk",
+            "_donations": [
+                16,
+                68,
+                170,
+                425
+            ]
+        },
+        "jeff bezos": {
+            "__obj_type": "Donor",
+            "_name": "Jeff Bezos",
+            "_donations": [
+                50,
+                100,
+                56,
+                600.0
+            ]
+        },
+        "mark zuckerberg": {
+            "__obj_type": "Donor",
+            "_name": "Mark Zuckerberg",
+            "_donations": [
+                45,
+                105,
+                349,
+                101,
+                78
+            ]
+        },
+        "paul allen": {
+            "__obj_type": "Donor",
+            "_name": "Paul Allen",
+            "_donations": [
+                10,
+                50,
+                400,
+                400
+            ]
+        },
+        "richard branson": {
+            "__obj_type": "Donor",
+            "_name": "Richard Branson",
+            "_donations": [
+                25,
+                90,
+                124,
+                300
+            ]
+        },
+        "oprah winfrey": {
+            "__obj_type": "Donor",
+            "_name": "Oprah Winfrey",
+            "_donations": [
+                1000.0,
+                200.0
+            ]
+        }
+    }
+}

@@ -1,0 +1,12 @@
+2018-06-24 17:37:38,142 simple.py:35  WARNING The value of i is 50.
+2018-06-24 17:37:38,142 simple.py:39  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-24 17:43:14,310 simple.py:35  WARNING The value of i is 50.
+2018-06-24 17:43:14,310 simple.py:39  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-24 17:56:07,959 simple.py:35  WARNING The value of i is 50.
+2018-06-24 17:56:07,959 simple.py:39  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-24 17:57:30,228 simple.py:36  WARNING The value of i is 50.
+2018-06-24 17:57:30,228 simple.py:40  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-24 17:58:06,233 simple.py:36  WARNING The value of i is 50.
+2018-06-24 17:58:06,234 simple.py:40  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
+2018-06-24 18:04:28,134 simple.py:35  WARNING The value of i is 50.
+2018-06-24 18:04:28,136 simple.py:39  ERROR Tried to divide by zero. Var i was 50. Recovered gracefully.
