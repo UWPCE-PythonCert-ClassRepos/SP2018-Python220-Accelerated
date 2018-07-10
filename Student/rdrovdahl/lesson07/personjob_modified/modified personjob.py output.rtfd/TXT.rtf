@@ -1,0 +1,87 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red239\green239\blue239;\red4\green4\blue4;}
+{\*\expandedcolortbl;;\cssrgb\c94962\c94962\c94962;\cssrgb\c1294\c1294\c1294;}
+\margl1440\margr1440\vieww19020\viewh24360\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Tables from sqlite3:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic.tiff \width15720 \height7340 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+Command line output:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 Ryans-MacBook-Pro:personjob_modified rdrovdahl$ python3 personjob_learning.py \
+INFO:__main__:Working with Person class\
+INFO:__main__:Note how I use constants and a list of tuples as a simple schema\
+INFO:__main__:Normally you probably will have prompted for this from a user\
+INFO:__main__:Creating Person records: iterate through the list of tuples\
+INFO:__main__:Prepare to explain any errors with exceptions\
+INFO:__main__:and the transaction tells the database to fail on error\
+INFO:__main__:Database add successful\
+INFO:__main__:Database add successful\
+INFO:__main__:Database add successful\
+INFO:__main__:Database add successful\
+INFO:__main__:Database add successful\
+INFO:__main__:Print the Person records we saved...\
+INFO:__main__:Andrew lives in Sumner and likes to be known as Andy\
+INFO:__main__:Peter lives in Seattle and likes to be known as None\
+INFO:__main__:Susan lives in Boston and likes to be known as Beannie\
+INFO:__main__:Pam lives in Coventry and likes to be known as PJ\
+INFO:__main__:Steven lives in Colchester and likes to be known as None\
+INFO:__main__:Working with Department class\
+INFO:__main__:Creating Department records: iterate through the list of tuples\
+INFO:__main__:Prepare to explain any errors with exceptions\
+INFO:__main__:and the transaction tells the database to fail on error\
+INFO:__main__:Database add successful\
+INFO:__main__:Database add successful\
+INFO:__main__:Database add successful\
+INFO:__main__:Database add successful\
+INFO:__main__:Print the Department records we saved...\
+INFO:__main__:E101 is the ID for the Engineering department and the department manager is Mr Sprocket\
+INFO:__main__:T201 is the ID for the Information Technology department and the department manager is Mr Bits\
+INFO:__main__:B402 is the ID for the Business Administration department and the department manager is Mrs Pots\
+INFO:__main__:H504 is the ID for the Human Resources department and the department manager is Mrs Fields\
+INFO:__main__:Working with Job class\
+INFO:__main__:Creating Job records: just like Person. We use the foreign key\
+INFO:__main__:Reading and print all Job rows (note the value of person)...\
+INFO:__main__:Analyst : 2001-09-22 to 2003-01-30 (495 days) for Andrew\
+INFO:__main__:Senior analyst : 2003-02-01 to 2006-10-22 (1359 days) for Andrew\
+INFO:__main__:Senior business analyst : 2006-10-23 to 2016-12-24 (3715 days) for Andrew\
+INFO:__main__:Admin supervisor : 2012-10-01 to 2014-11-10 (770 days) for Peter\
+INFO:__main__:Admin manager : 2014-11-14 to 2018-01-05 (1148 days) for Peter\
+INFO:__main__:database closes\
+INFO:__main__:Person Andrew had job Analyst with department ID T201\
+INFO:__main__:   department name is Information Technology\
+INFO:__main__:Person Andrew had job Senior analyst with department ID B402\
+INFO:__main__:   department name is Business Administration\
+INFO:__main__:Person Andrew had job Senior business analyst with department ID B402\
+INFO:__main__:   department name is Business Administration\
+INFO:__main__:Person Peter had job Admin supervisor with department ID H504\
+INFO:__main__:   department name is Human Resources\
+INFO:__main__:Person Peter had job Admin manager with department ID H504\
+INFO:__main__:   department name is Human Resources\
+\
+\
+The following is a list of persons and the departments they've worked for:\
+\
+     Andrew \{'Information Technology', 'Business Administration'\}\
+     Peter \{'Human Resources'\}\
+\
+\
+Ryans-MacBook-Pro:personjob_modified rdrovdahl$ 
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+\
+\
+\
+\
+}

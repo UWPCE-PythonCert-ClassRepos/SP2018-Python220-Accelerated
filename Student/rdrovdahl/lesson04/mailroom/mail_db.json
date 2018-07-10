@@ -1,0 +1,11 @@
+{
+    "__obj_type": "DonorDB",
+    "name": "Red Skull",
+    "donations": [
+        1000,
+        2000,
+        3000
+    ],
+    "status": "Villian",
+    "location": "Europe"
+}
