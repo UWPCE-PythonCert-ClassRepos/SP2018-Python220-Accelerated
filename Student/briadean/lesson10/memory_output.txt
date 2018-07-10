@@ -1,0 +1,118 @@
+(venv) Bris-MBP:UW-220 bri$ python3 memory.py
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.6 MiB     36.6 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.6 MiB      0.0 MiB       a, b = 1, 1
+     8     36.6 MiB      0.0 MiB       for i in range(n-1):
+     9                                     a, b = b, a + b
+    10     36.6 MiB      0.0 MiB       return a
+
+
+1
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+1
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+2
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+3
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+5
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+8
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+13
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+21
+Filename: memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     5     36.7 MiB     36.7 MiB   @profile
+     6                             def fibonacci1(n):
+     7     36.7 MiB      0.0 MiB       a, b = 1, 1
+     8     36.7 MiB      0.0 MiB       for i in range(n-1):
+     9     36.7 MiB      0.0 MiB           a, b = b, a + b
+    10     36.7 MiB      0.0 MiB       return a
+
+
+34
