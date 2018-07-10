@@ -1,0 +1,28 @@
+Last login: Mon Jul  9 23:20:26 on ttys000
+Tammys-MBP:~ tammydo$ which python3
+/Library/Frameworks/Python.framework/Versions/3.6/bin/python3
+Tammys-MBP:~ tammydo$ mkvirtualenv -p python3 cython2
+Running virtualenv with interpreter /Library/Frameworks/Python.framework/Versions/3.6/bin/python3
+Using base prefix '/Library/Frameworks/Python.framework/Versions/3.6'
+New python executable in /Users/tammydo/.virtualenvs/cython2/bin/python3
+Also creating executable in /Users/tammydo/.virtualenvs/cython2/bin/python
+Installing setuptools, pip, wheel... done.
+virtualenvwrapper.user_scripts creating /Users/tammydo/.virtualenvs/cython2/bin/predeactivate
+virtualenvwrapper.user_scripts creating /Users/tammydo/.virtualenvs/cython2/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /Users/tammydo/.virtualenvs/cython2/bin/preactivate
+virtualenvwrapper.user_scripts creating /Users/tammydo/.virtualenvs/cython2/bin/postactivate
+virtualenvwrapper.user_scripts creating /Users/tammydo/.virtualenvs/cython2/bin/get_env_details
+(cython2) Tammys-MBP:~ tammydo$ pip install cython
+Collecting cython
+  Downloading https://files.pythonhosted.org/packages/bb/7c/236ca25870bf6f369ba6690b3585d8617592b3f9b049d2bdb3d96ec89bc2/Cython-0.28.4-cp36-cp36m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl (5.3MB)
+    100% |████████████████████████████████| 5.3MB 2.2MB/s 
+Installing collected packages: cython
+Successfully installed cython-0.28.4
+(cython2) Tammys-MBP:~ tammydo$ pip list
+Package    Version
+---------- -------
+Cython     0.28.4 
+pip        10.0.1 
+setuptools 40.0.0 
+wheel      0.31.1 
+(cython2) Tammys-MBP:~ tammydo$ 
